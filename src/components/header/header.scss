@@ -1,0 +1,34 @@
+@use "../../scss/" as *;
+
+.container-header {
+    @include flex(space-between, center);
+    padding: 1rem 3rem;
+    .logo-company {
+        width: 4rem;
+    }
+    .menu-options {
+        li {
+            a{
+                color: $color-text-form;
+                font-size: 1rem;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) { 
+    .container-header {
+        padding: 1rem;
+        .logo-company {
+            width: 3rem;
+        }
+        .menu-options {
+            li {
+                a{
+                    font-size: 0.7rem;
+                }
+            }
+        }
+    }
+}
+

@@ -1,0 +1,15 @@
+@use "../../scss/" as *;
+
+.nav-dashboard {
+    @include flex(flex-end, center);
+    height: 4rem;
+    margin-right: 3rem;
+    width: 100%;
+    background-color: transparent;
+    .menu-options {
+        margin-bottom: 0;
+        li {
+            @include format-font(600, 0.9rem, 24px);
+        }
+    }
+}

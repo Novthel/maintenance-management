@@ -1,0 +1,38 @@
+@use "../../scss/" as *;
+
+
+.container-sidebar {
+    background-color: $background-sidebar;
+    min-height: 100vh;
+    @include flex(flex-start, center);
+    flex-direction: column;
+    
+    .logo-sidebar {
+        margin-top: 3rem;
+        margin-bottom: 1rem;
+        width: 8rem;
+    }
+
+    .text-sidebar {
+        @include flex(center, center);
+        flex-direction: column;
+        color: $color-text-sidebar;
+        font-style: normal;
+        .title-company {
+            @include format-font(400, 1.2rem, 39px);
+        }
+        .text-username {
+            @include format-font(400, 0.9rem, 24px);
+            padding: 0 0.7rem;
+            text-align: center;
+        }
+    }
+    
+    .button-group-sidebar {
+        @include flex(center, center);
+        flex-direction: column;
+        gap: 0.6rem;
+        margin: 1.5rem;
+    }
+   
+}
