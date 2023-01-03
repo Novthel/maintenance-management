@@ -1,10 +1,11 @@
 
 import MenuDashboard from "../components/menu/MenuDashboard";
+import NotificationDetail from "../components/Formrequest/NotificationDetail";
 import Sidebar from "../components/sidebar/Sidebar";
 
 
 
-export default function DashboardManager() {
+export default function DashboardManagerNotificationDetail() {
 
 
   return (
@@ -14,7 +15,7 @@ export default function DashboardManager() {
         <section className="dashboard col-12 col-md-9">
           <MenuDashboard />
           <section className="container-dashboard">
-
+            <NotificationDetail />
           </section> 
         </section> 
     </div>

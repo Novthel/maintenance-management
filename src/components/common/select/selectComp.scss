@@ -1,0 +1,26 @@
+@use '../../../scss/' as *;
+
+.status-activity {
+
+    @include format-font(400, 0.9rem, 16px);
+    color: $color-text-option;
+    border: none;
+    border-radius: 4px;
+    background: $background-page-dashboard;
+    outline: none;
+    padding: 0.2rem;
+    .option-selected {
+        color: $color-text-option;  
+    }
+ 
+}
+
+@media (max-width: 767.98px) { 
+    .status-activity {
+
+        @include format-font(400, 0.6rem, 16px);
+        color: $color-text-option;
+        padding: 0.3rem;
+    }
+    
+}

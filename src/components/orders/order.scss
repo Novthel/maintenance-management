@@ -1,0 +1,83 @@
+@use '../../scss/' as *;
+
+.comp-order {
+    .sec-btn-finalize {
+        padding: 0.5rem;
+        padding-bottom: 1rem;
+        @include flex(flex-end, center);
+    }
+    .form-order {
+        @include flex(none, center);
+        flex-direction: column;
+        padding: 0 0.5rem;
+        legend {
+            text-align: center;
+            padding: 1rem;
+            @include format-font(600, 1.4rem, 48px);
+        }
+        .form-line {
+            width: 100%;
+            @include flex(space-between, center);
+            flex-wrap: wrap;
+            span {
+                @include format-font(600, 0.7rem, 24px);
+            }
+            .input-order {
+                @include format-font(400, 0.7rem, 24px);
+                padding: 0 0.5rem;
+                background-color: $background-input-orderDetail;
+                border: none;
+                outline: none;
+            }
+            .area-description {
+                @include format-font(400, 0.7rem, 32px);
+                padding: 0 0.5rem;
+                background-color: $background-input-orderDetail;
+                border: none;
+                outline: none;
+                border-radius: 8px;
+            }
+            .input-row {
+                @include flex(center, center);
+                gap: 0.5rem;             
+            }
+            .input-row2 {
+                display: flex;
+                flex-direction: column;
+            } 
+        }
+        .check-tools {
+            padding: 0.1rem 0;
+            @include format-font(600, 0.8rem, 32px );
+            span {
+                margin-left: 0.6rem;
+                @include format-font(600, 0.8rem, 32px );
+                
+            }
+        }
+    }
+}
+
+@media (max-width: 575.98px) { 
+    .comp-order {
+        .form-order {
+            legend {
+                @include format-font(600, 1.1rem, 32px);
+            }
+            .form-line {
+                .input-row {
+                    @include flex(flex-start, center);
+                    margin-bottom: 1rem;
+                } 
+            }
+            .check-tools {
+                padding: 0.5rem 0;
+                @include format-font(400, 0.7rem, 32px );
+                span {
+                    @include format-font(400, 0.6rem, 32px );
+                    
+                }
+            }
+        }
+    }
+}

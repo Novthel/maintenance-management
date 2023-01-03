@@ -1,12 +1,12 @@
-import ButtonComp from '../common/button/ButtonComp';
+import { Link } from 'react-router-dom';
 import './menuDashboard.scss'
 
-const MenuDashboard = ({ mode }) => {
+const MenuDashboard = () => {
     return (
         <section className='nav-dashboard'>
             <ul className='menu-options'>
-                <li><ButtonComp  className='btn-menu-dashboard' type='button' onClick={ ()=> mode('activity') } >Maintenance Activities</ButtonComp></li>
-                <li><ButtonComp  className='btn-menu-dashboard' type='button' onClick={ ()=> mode('notification') } >Notifications</ButtonComp></li>
+                <li><Link to='/dashboard-manager/activity-List'>Maintenance Activities</Link></li>
+                <li><Link to='/dashboard-manager/notification'>Notifications</Link></li>
             
             </ul>
         </section>

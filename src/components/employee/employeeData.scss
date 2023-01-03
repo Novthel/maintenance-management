@@ -1,0 +1,106 @@
+@use '../../scss/' as *;
+
+.container-Profile {
+    @include flex(center, center);
+    flex-direction: column;
+    min-width: 100%;
+    padding-top: 3rem;
+
+    .employee-profile {    
+        @include flex(center, center);
+        flex-wrap: wrap-reverse;
+
+        .info-employeeProfile {
+            @include flex(center, center);
+            padding: 0;
+            gap: 1rem;
+            .form-employeeProfile {
+                @include flex(center, center);
+                flex-direction: column;
+                padding: 1rem;
+                .form-line {
+                    width: 100%;
+                    @include flex(space-between, center);
+                    span {
+                        @include format-font(600, 0.8rem, 24px);
+                    }
+                    .input-profile {
+                        @include format-font(400, 0.8rem, 24px);
+                        padding: 0 0.5rem;
+                        background-color: $background-input-orderDetail;
+                        border: none;
+                        outline: none;
+                    }
+                    .input-row {
+                        @include flex(flex-start, center);
+                        gap: 0.5rem;
+                        
+                    }
+                    .input-row2 {
+                        display: flex;
+                        flex-direction: column;
+                    } 
+                }
+            }
+           
+        }
+        .photo-employeeProfile {
+            @include flex(center, center);
+            flex-direction: column;
+            gap: 0.5rem;
+            .employee-photo {
+                width: 8rem;
+                height: auto;
+                box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            }
+            .employee-name {
+                @include format-font(400, 1rem, 24px);
+                background-color: transparent;
+                border: none;
+            }
+        }
+    }
+    
+    .employeeProfile-activities {
+        @include flex(center, center);
+        flex-direction: column;
+
+        
+    }
+}
+
+@media (max-width: 767.98px) { 
+    .container-Profile {
+        padding-top: 2rem;
+    
+        .employee-profile {    
+            .info-employeeProfile {
+                gap: 0.5rem;
+                .form-employeeProfile {
+                    padding: 0.5rem;
+                    .form-line {
+                        span {
+                            @include format-font(600, 0.7rem, 24px);
+                        }
+                        .input-profile {
+                            @include format-font(400, 0.7rem, 24px);
+                        } 
+                    }
+                }
+               
+            }
+            .photo-employeeProfile {
+                @include flex(center, center);
+                flex-direction: column;
+                gap: 0.5rem;
+                .employee-photo {
+                    width: 6rem;
+                }
+                .employee-name {
+                    @include format-font(600, 0.8rem, 24px);
+                }
+            }
+        }
+        
+    } 
+}

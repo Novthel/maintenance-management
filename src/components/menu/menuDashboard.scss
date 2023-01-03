@@ -9,7 +9,39 @@
     .menu-options {
         margin-bottom: 0;
         li {
-            @include format-font(600, 0.9rem, 24px);
+            a {
+                @include format-font(600, 0.9rem, 24px);
+                color: $color-text-form;
+            }
+        }
+    }
+}
+
+@media (max-width: 991.98px) { 
+
+    .nav-dashboard {
+        margin-right: 1rem;
+        .menu-options {
+            li {
+                a {
+                    @include format-font(600, 0.7rem, 24px);
+                }
+                
+            }
+        }
+    }
+}
+
+@media (max-width: 376px) { 
+
+    .nav-dashboard {
+        .menu-options {
+            li {
+                a {
+                    @include format-font(600, 0.6rem, 24px);
+                }
+                
+            }
         }
     }
 }

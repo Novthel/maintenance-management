@@ -23,16 +23,62 @@
     display: flex;
     width: 100%;
     min-height: 100vh;
+    flex-wrap: wrap;
+
     .dashboard {
         @include flex(flex-start, center );
         flex-direction: column;
         background-color: $background-page-dashboard;
-      .container-dashboard {
-        margin-top: 0.5rem;
-        width: 92%;
-        height: 80%;
-        background-color: $background-container-dashboard;
-        border-radius: 1rem;
-      }
+
+        .container-dashboard {
+          width: 95%;
+          min-height: 92%;
+          background-color: $background-container-dashboard;
+          border-radius: 1rem;
+
+          .title-page {
+            @include flex(center, center );
+            padding-top: 1rem;
+            background-color: $background-sidebar;
+            margin-bottom: 1rem;
+            
+            h1 {
+              @include format-font(600, 1.8rem, 48px);
+              color: $color-text-sidebar;
+            }
+          }
+        }
     }
+}
+
+@media (max-width: 991.98px) { 
+ 
+  .pag-dashboard {
+    .dashboard {
+        .container-dashboard {
+          .title-page { 
+            h1 {
+              @include format-font(600, 1.5rem, 48px);
+            }
+          }
+        }
+    }
+  }
+  
+}
+
+@media (max-width: 376px) { 
+ 
+  .pag-dashboard {
+    .dashboard {
+        .container-dashboard {
+          .title-page { 
+            h1 {
+              @include format-font(400, 1.1rem, 48px);
+            }
+          }
+        }
+    }
+  }
+  
 }

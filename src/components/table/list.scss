@@ -1,0 +1,61 @@
+@use '../../scss/' as *;
+
+.sec-filter {
+    @include flex (flex-end, center);
+    padding: 2rem;
+    gap: 1rem;
+}
+
+.table {
+    background-color: $background-table;
+    th {
+        @include format-font(700, 0.9rem, 24px );
+    }
+    td {
+        @include format-font(400, 0.9rem, 24px );
+      
+    }
+    .status {
+        text-transform: capitalize;
+        @include format-font(700, 0.9rem, 16px );
+    }
+}
+
+@media (max-width: 768px) { 
+    
+    .sec-filter {
+        padding: 2rem;
+    }
+    .table {
+        th {
+            @include format-font(700, 0.8rem, 16px );
+        }
+        td {
+            @include format-font(400, 0.7rem, 14px );
+          
+        }
+        .status {
+            @include format-font(700, 0.7rem, 16px );
+        }
+    }
+}
+
+
+@media (max-width: 376px) { 
+    
+    .sec-filter {
+        padding: 1rem;
+    }
+    .table {
+        th {
+            @include format-font(700, 0.7rem, 16px );
+        }
+        td {
+            @include format-font(400, 0.6rem, 14px );
+          
+        }
+        .status {
+            @include format-font(700, 0.6rem, 16px );
+        }
+    }
+}

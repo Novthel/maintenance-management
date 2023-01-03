@@ -1,0 +1,39 @@
+@use '../../../scss/' as *;
+
+
+.container-search {
+    display: flex;
+    .search {
+        position: relative;
+        color: $color-text-option;  
+        .input-search {
+            background: $background-page-dashboard;
+            outline: none;
+            padding:  0.3rem;
+            border: none;
+            @include format-font(400, 0.8rem, 12px );
+            border-radius: 4px;
+          
+        }
+
+        .btn-search {
+            position: absolute;
+            right: 4px;
+            height: 100%;
+            border: none;
+            background-color: transparent;
+            @include format-font(400, 1rem, 16px );
+        }
+    }
+}
+
+@media (max-width: 767.98px) { 
+    .container-search {
+        .search {
+            .input-search {
+                @include format-font(200, 0.6rem, 4px );
+            }
+        }
+    }
+    
+}
