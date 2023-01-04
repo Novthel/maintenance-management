@@ -1,12 +1,19 @@
-import React from 'react'
+import { useState, useContext, useEffect } from 'react';
+import { AppContext } from '../../context/UserProvider';
 import ButtonComp from '../common/button/ButtonComp'
 import './request.scss'
 
 
 export default function NotificationDetail() {
 
+    const [user, setUser] = useState(null);
+    const { userSession } = useContext( AppContext );
 
-  return (
+    useEffect(()=>{
+        setUser( userSession )
+    },[userSession])
+
+    return (
         <div className='container comp-request'>
 
             <form  className='form-request' >
@@ -53,13 +60,20 @@ export default function NotificationDetail() {
                         <textarea type="text" name='description-problem' className='area-description' rows={4} />
                     </div>
                 </div>
-
-                <div className='sec-btn-send col-3'>
-                    <ButtonComp className='btn-submit'>SEND</ButtonComp>
-                </div>   
+                {
+                    user === 'admin'? 
+                    (
+                        null
+                    )
+                    :
+                    <div className='sec-btn-send col-3'>
+                        <ButtonComp className='btn-submit'>SEND</ButtonComp>
+                    </div> 
+                }
+                  
             </form>           
 
         </div>
 
-  )
+    )
 }

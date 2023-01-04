@@ -1,15 +1,33 @@
+import { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../../context/UserProvider';
 import ButtonComp from '../common/button/ButtonComp';
 import './order.scss'
 
 
-
 const CreateOrder = () => {
+
+    const { userSession } = useContext( AppContext )
+    const [ user, setUser ] = useState(null);
+
+    useEffect(()=>{
+        setUser( userSession )
+    },[userSession])
+
     return (
 
             <div className='container comp-order'>
 
                 <div className='sec-btn-finalize'>
-                    <ButtonComp className='btn-send'>Create</ButtonComp>
+
+                    {
+                        user === 'technician'?
+                        (
+                            <ButtonComp className='btn-send'>Send</ButtonComp>
+                        )
+                        :
+                        <ButtonComp className='btn-send'>Create</ButtonComp>
+                   }
+                   
                 </div>
 
                 <form  className='form-order' >

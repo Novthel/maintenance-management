@@ -1,4 +1,5 @@
-
+import { useState, useContext, useEffect } from 'react';
+import { AppContext } from '../../context/UserProvider';
 import Search from "../common/search/Search";
 import SelectComp from "../common/select/SelectComp";
 import { BsFillEyeFill} from "react-icons/bs";
@@ -6,7 +7,15 @@ import './list.scss'
 import { Link } from "react-router-dom";
 
 
-const ActivitiesList = ({ orderDetail }) => {
+
+const ActivitiesList = () => {
+
+    const { userSession } = useContext( AppContext );
+    const [user, setUser] = useState('technician');
+
+    useEffect(()=>{
+        setUser( userSession )
+    },[userSession])
 
     const list = [
         {
@@ -54,7 +63,15 @@ const ActivitiesList = ({ orderDetail }) => {
                                                 <td>{new Date (o.date).toLocaleDateString('en-US', {year: 'numeric', month: '2-digit', day: '2-digit'})}</td>
                                                 <td>{o.activity}</td>
                                                 <td className="status">{ o.status }</td>
-                                                <td><Link to={`/dashboard-manager/activity-List/${o.code}`}><BsFillEyeFill /></Link></td>
+                                                
+                                                {
+                                                    user === 'technician'?
+                                                    (
+                                                        <td><Link to={`/dashboard-manager/create-Activity/${o.code}`}><BsFillEyeFill /></Link></td>
+                                                    )
+                                                    :
+                                                    <td><Link to={`/dashboard-manager/activity-List/${o.code}`}><BsFillEyeFill /></Link></td>
+                                                }
                                             </tr>
                             )}
                             

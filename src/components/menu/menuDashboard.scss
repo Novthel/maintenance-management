@@ -10,7 +10,7 @@
         margin-bottom: 0;
         li {
             a {
-                @include format-font(600, 0.9rem, 24px);
+                @include format-font(600, 0.9rem, 42px);
                 color: $color-text-form;
             }
         }
@@ -24,7 +24,7 @@
         .menu-options {
             li {
                 a {
-                    @include format-font(600, 0.7rem, 24px);
+                    @include format-font(400, 0.8rem, 24px);
                 }
                 
             }
@@ -38,7 +38,7 @@
         .menu-options {
             li {
                 a {
-                    @include format-font(600, 0.6rem, 24px);
+                    @include format-font(400, 0.65rem, 42px);
                 }
                 
             }

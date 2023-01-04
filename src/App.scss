@@ -10,12 +10,29 @@
     box-sizing: border-box;
 }
 
+.container {
+  min-width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
 // styles the form container section on different pages
 .sec-form {
     @include flex(flex-start, center);
     flex-direction: column;
     width: 100%;
     min-height: 100%;
+}
+
+.sec-notify {
+    .comp-request {
+      @include flex(center, center);
+      .form-request {
+        border: 1px solid $background-border-input-order;
+        border-radius: 8px;
+        width: 50%;
+      }
+    }
 }
 
 // dashboard page styles
@@ -29,12 +46,14 @@
         @include flex(flex-start, center );
         flex-direction: column;
         background-color: $background-page-dashboard;
+        padding: 1rem 0;
 
         .container-dashboard {
           width: 95%;
-          min-height: 92%;
+          min-height: 95%;
           background-color: $background-container-dashboard;
-          border-radius: 1rem;
+          border: 1px solid $background-sidebar;
+          border-radius: 6px;
 
           .title-page {
             @include flex(center, center );
@@ -67,10 +86,28 @@
   
 }
 
+@media (max-width: 767.98px) { 
+  .sec-notify {
+    .comp-request {
+      .form-request {
+        width: 80%;
+      }
+    }
+  }
+}
+
 @media (max-width: 376px) { 
  
+  .sec-notify {
+    .comp-request {
+      .form-request {
+        width: 90%;
+      }
+    }
+  }
   .pag-dashboard {
     .dashboard {
+      padding: 0;
         .container-dashboard {
           .title-page { 
             h1 {

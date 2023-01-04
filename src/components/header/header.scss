@@ -6,12 +6,20 @@
     .logo-company {
         width: 4rem;
     }
+    
     .menu-options {
+       
         li {
             a{
                 color: $color-text-form;
-                font-size: 1rem;
+                @include format-font(600, 1rem, 24px);
             }
+        }
+        .btn-menu-dashboard {
+            @include format-font(400, 1rem, 32px);
+            border: 1px solid $background-border-input-order;
+            padding: 0 1.5rem;
+            border-radius: 6px;
         }
     }
 }
@@ -27,6 +35,12 @@
                 a{
                     font-size: 0.7rem;
                 }
+            }
+            .btn-menu-dashboard {
+                @include format-font(400, 0.6rem, 24px);
+                border: 1px solid $background-border-input-order;
+                padding: 0 1rem;
+                border-radius: 3px;
             }
         }
     }

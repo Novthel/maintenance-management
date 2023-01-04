@@ -2,17 +2,16 @@
 
 .comp-order {
     .sec-btn-finalize {
-        padding: 0.5rem;
-        padding-bottom: 1rem;
+        padding: 1rem;
         @include flex(flex-end, center);
     }
     .form-order {
         @include flex(none, center);
         flex-direction: column;
-        padding: 0 0.5rem;
+        padding: 0.5rem;
         legend {
             text-align: center;
-            padding: 1rem;
+            padding: 0.5rem;
             @include format-font(600, 1.4rem, 48px);
         }
         .form-line {
@@ -20,25 +19,26 @@
             @include flex(space-between, center);
             flex-wrap: wrap;
             span {
-                @include format-font(600, 0.7rem, 24px);
+                @include format-font(600, 0.9rem, 24px);
             }
             .input-order {
-                @include format-font(400, 0.7rem, 24px);
-                padding: 0 0.5rem;
-                background-color: $background-input-orderDetail;
-                border: none;
+                @include format-font(400, 0.9rem, 24px);
+                padding: 0.5rem;
+                background-color: $background-input-order;
+                border: 1px solid $background-border-input-order;
                 outline: none;
+                border-radius: 4px;
             }
             .area-description {
-                @include format-font(400, 0.7rem, 32px);
+                @include format-font(400, 0.9rem, 32px);
                 padding: 0 0.5rem;
-                background-color: $background-input-orderDetail;
-                border: none;
+                background-color: $background-input-order;
+                border: 1px solid $background-border-input-order;
                 outline: none;
-                border-radius: 8px;
+                border-radius: 4px;
             }
             .input-row {
-                @include flex(center, center);
+                @include flex(flex-start, center);
                 gap: 0.5rem;             
             }
             .input-row2 {
@@ -47,11 +47,13 @@
             } 
         }
         .check-tools {
-            padding: 0.1rem 0;
+            padding: 0.8rem 0;
             @include format-font(600, 0.8rem, 32px );
+            color: $color-text-check;
             span {
                 margin-left: 0.6rem;
                 @include format-font(600, 0.8rem, 32px );
+                
                 
             }
         }
@@ -69,12 +71,20 @@
                     @include flex(flex-start, center);
                     margin-bottom: 1rem;
                 } 
+                .input-order {
+                    @include format-font(200, 0.8rem, 24px);
+                    padding: 0.5rem;
+                }
+                .area-description {
+                    @include format-font(200, 0.8rem, 32px);
+                    padding: 0 0.5rem;
+                }
             }
             .check-tools {
                 padding: 0.5rem 0;
-                @include format-font(400, 0.7rem, 32px );
+                @include format-font(400, 0.8rem, 32px );
                 span {
-                    @include format-font(400, 0.6rem, 32px );
+                    @include format-font(400, 0.8rem, 32px );
                     
                 }
             }

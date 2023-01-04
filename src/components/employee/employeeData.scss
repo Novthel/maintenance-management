@@ -22,13 +22,13 @@
                     width: 100%;
                     @include flex(space-between, center);
                     span {
-                        @include format-font(600, 0.8rem, 24px);
+                        @include format-font(600, 1rem, 24px);
                     }
                     .input-profile {
-                        @include format-font(400, 0.8rem, 24px);
-                        padding: 0 0.5rem;
-                        background-color: $background-input-orderDetail;
-                        border: none;
+                        @include format-font(400, 1rem, 24px);
+                        padding: 0.5rem;
+                        background-color: $background-input-order;
+                        border: 1px solid $background-border-input-order;
                         outline: none;
                     }
                     .input-row {
@@ -48,13 +48,14 @@
             @include flex(center, center);
             flex-direction: column;
             gap: 0.5rem;
+            
             .employee-photo {
                 width: 8rem;
                 height: auto;
                 box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
             }
             .employee-name {
-                @include format-font(400, 1rem, 24px);
+                @include format-font(600, 1rem, 24px);
                 background-color: transparent;
                 border: none;
             }
@@ -80,10 +81,10 @@
                     padding: 0.5rem;
                     .form-line {
                         span {
-                            @include format-font(600, 0.7rem, 24px);
+                            @include format-font(600, 0.8rem, 24px);
                         }
                         .input-profile {
-                            @include format-font(400, 0.7rem, 24px);
+                            @include format-font(400, 0.8rem, 24px);
                         } 
                     }
                 }

@@ -6,11 +6,11 @@ $background-input: rgba(217, 217, 217, 1);
 
 
 // dashboard variable
-$background-sidebar: rgb(123,115,115);
+$background-sidebar: #497174;
 $color-text-sidebar: rgba(255, 255, 255, 1);
 $background-btn-sidebar: rgba(217, 217, 217, 1);
-$background-container-dashboard: rgb(217,217,217);
-$background-page-dashboard: rgb(248, 240, 240);
+$background-container-dashboard: white;
+$background-page-dashboard: white;
 
 
 //table variable
@@ -20,6 +20,9 @@ $background-view: rgba(15, 24, 255, 1);
 //select variable
 $color-text-view: rgb(54, 54, 54);
 $color-text-option: rgb(31, 29, 29);
+$background-color-search: #D6E4E5;
 
-$background-input-orderDetail: rgb(165, 164, 164);
-$color-text-form-companyProfile:rgba(255, 255, 255, 1);
+
+$background-input-order: rgba(255, 255, 255, 1);
+$background-border-input-order: rgba(161, 158, 158, 0.39);
+$color-text-check: blue;

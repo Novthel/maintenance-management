@@ -11,19 +11,29 @@ import DashboardManagerHelp from './pages/DashboardManagerHelp';
 import DashboardManagerStore from './pages/DashboardManagerStore';
 import DashboardManagerEmployees from './pages/DashboardManagerEmployees';
 import DashboardManagerEmployeeData from './pages/DashboardManagerEmployeeData';
+import { AppContext } from './context/UserProvider';
+import { useContext } from 'react';
+import Notification from './pages/Notification';
+import Register from './pages/Register';
 
 
 
 function App() {
+
+  const { userSession } = useContext( AppContext );
+  console.log(userSession)
+
   return (
     <>
       <Routes>
 
         <Route path='/' element={ <Home /> } />
+        <Route path='/notification' element={ <Notification /> } />
+        <Route path='/register' element={ <Register /> } />
         <Route path='/dashboard-manager' element={ <DashboardManager /> } />
         <Route path='/dashboard-manager/activity-List' element={ <DashboardManagerActivityList /> } />
         <Route path='/dashboard-manager/activity-List/:code' element={ <DashboardManagerOrderDetail /> } />
-        <Route path='/dashboard-manager/create-Activity' element={ <DashboardManagerCreate /> } />
+        <Route path='/dashboard-manager/create-Activity/:code' element={ <DashboardManagerCreate /> } />
         <Route path='/dashboard-manager/notification' element={ <DashboardManagerNotification /> } />
         <Route path='/dashboard-manager/notification/:id' element={ <DashboardManagerNotificationDetail /> } />
         <Route path='/dashboard-manager/help' element={ <DashboardManagerHelp /> } />

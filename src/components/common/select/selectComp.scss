@@ -4,9 +4,9 @@
 
     @include format-font(400, 0.9rem, 16px);
     color: $color-text-option;
-    border: none;
+    border: 1px solid $background-border-input-order;
     border-radius: 4px;
-    background: $background-page-dashboard;
+    background: $background-color-search;
     outline: none;
     padding: 0.2rem;
     .option-selected {

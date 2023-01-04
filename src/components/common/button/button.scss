@@ -15,9 +15,9 @@
 .btn-sidebar {
     background-color: $background-btn-sidebar;
     width: 13rem;
-    @include format-font(400, 0.7rem, 32px);
+    @include format-font(600, 0.8rem, 36px);
     border: none;
-    border-radius: 0.5rem;
+    border-radius: 0.4rem;
 }
 
 .btn-menu-dashboard {
@@ -26,9 +26,9 @@
 }
 
 .btn-send {
-    @include format-font(400, 0.7rem, 20px);
+    @include format-font(600, 0.8rem, 20px);
     background-color: $background-btn-form;
-    padding: 0.1rem 1rem;
+    padding: 0.2rem 1.2rem;
     border: none;
     border-radius: 4px;
     color: #FFFBFB;

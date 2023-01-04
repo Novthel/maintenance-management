@@ -9,10 +9,10 @@
 .table {
     background-color: $background-table;
     th {
-        @include format-font(700, 0.9rem, 24px );
+        @include format-font(600, 1rem, 24px );
     }
     td {
-        @include format-font(400, 0.9rem, 24px );
+        @include format-font(400, 1rem, 24px );
       
     }
     .status {
@@ -28,14 +28,14 @@
     }
     .table {
         th {
-            @include format-font(700, 0.8rem, 16px );
+            @include format-font(600, 0.9rem, 16px );
         }
         td {
-            @include format-font(400, 0.7rem, 14px );
+            @include format-font(400, 0.9rem, 14px );
           
         }
         .status {
-            @include format-font(700, 0.7rem, 16px );
+            @include format-font(700, 0.8rem, 16px );
         }
     }
 }
@@ -48,14 +48,14 @@
     }
     .table {
         th {
-            @include format-font(700, 0.7rem, 16px );
+            @include format-font(600, 0.8rem, 16px );
         }
         td {
-            @include format-font(400, 0.6rem, 14px );
+            @include format-font(400, 0.7rem, 14px );
           
         }
         .status {
-            @include format-font(700, 0.6rem, 16px );
+            @include format-font(700, 0.7rem, 16px );
         }
     }
 }
