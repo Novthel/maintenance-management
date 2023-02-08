@@ -4,11 +4,15 @@
 .btn-submit {
     @include format-font(700, 1rem, 34px);
     background-color: $background-btn-form;
-    margin-top: 2rem;
+    margin-top: 1rem;
     border: none;
     width: 100%;
     color: #FFFBFB;
     cursor: pointer;
+    transition: all 0.3s;
+    &:hover {
+        background-color: $background-hoover-btn-form;
+    }
 
 }
 

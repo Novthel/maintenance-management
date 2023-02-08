@@ -1,19 +1,21 @@
 import logo from '../../assets/logo192.png';
 import './header.scss'
-import { useState, useContext, useEffect } from 'react';
-import { AppContext } from '../../context/UserProvider';
 import ButtonComp from '../common/button/ButtonComp';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-const Header = ({ registerView }) => {
+const Header = ({ registerView, userRole }) => {
 
-  const { userSession } = useContext( AppContext );
-  const [user, setUser] = useState(null);
+  const [role, setRole] = useState('');
+
+  const logout =()=>{
+    localStorage.removeItem('token')
+  }
 
 
-  useEffect(() => {
-    setUser( userSession )
-  }, [userSession]);
-
+  useEffect(()=>{
+    setRole(userRole)
+  },[userRole])
 
   return (
     <section className="container-header">
@@ -21,11 +23,22 @@ const Header = ({ registerView }) => {
         
 
           {
-            user === 'admin'?
+            role === 'admin'?
             ( 
-                <ul className='menu-options'>
+                <ul className='options'>
                   <li><ButtonComp type='button' className='btn-menu-dashboard' onClick={ ()=> registerView('bussines') }>Bussines</ButtonComp></li>
                   <li><ButtonComp type='button' className='btn-menu-dashboard' onClick={ ()=> registerView('users') }>User</ButtonComp></li>
+                </ul>
+            )
+            :
+            null
+          }
+
+          {
+            role === 'operator'?
+            ( 
+                <ul className='options'>
+                  <Link to='/'><ButtonComp type='button' className='btn-send' onClick={ logout }>LogOut</ButtonComp></Link>
                 </ul>
             )
             :

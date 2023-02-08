@@ -7,8 +7,10 @@
         width: 4rem;
     }
     
-    .menu-options {
-       
+    .options {
+       @include flex(center, center);
+       padding-left: 0;
+       margin-bottom: 0;
         li {
             a{
                 color: $color-text-form;
@@ -30,7 +32,7 @@
         .logo-company {
             width: 3rem;
         }
-        .menu-options {
+        .options {
             li {
                 a{
                     font-size: 0.7rem;

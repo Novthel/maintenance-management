@@ -63,10 +63,19 @@ export default function FormRegisterCompany() {
             </div>
            
             <div className="row">
-                <div className='form-group col-12 col-md-6 col-lg-4'>
-                    <label htmlFor="birthday"><span>Year of birth *</span></label>
-                    <input type="date" name='birthday' className='form-control'  {...register('birthday',{ required:true }) }/>
-                    { errors.birthday?.type === 'required' && <p className='text-danger small'>*Date is required</p> }
+                <div className='form-group col-12 col-md-6'>
+                <label htmlFor="username"><span>Username *</span></label>
+                    <input type="text" name='position' className='form-control'  {...register('username',
+                    {
+                        required:true,
+                        pattern: er.user
+                    }) 
+                    }/>
+                    { errors.username?.type === 'required' && <p className='text-danger small'>*username is required</p> }
+                    { errors.username?.type === 'pattern' &&  
+                    <p className='text-danger small'>
+                        * only lowercase, uppercase, accents, and spaces.
+                    </p> }
                 </div>
                 <div className='form-group col-12 col-md-6'>
                     <label htmlFor="position"><span>Position *</span></label>

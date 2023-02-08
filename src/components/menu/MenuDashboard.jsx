@@ -6,27 +6,25 @@ import './menuDashboard.scss'
 
 const MenuDashboard = () => {
 
-   
-    const [user, setUser] = useState(null);
-    const { userSession } = useContext( AppContext );
-
+    const { role } = useContext( AppContext );
+    const [userRole, setUserRole] = useState(null);
 
     useEffect(() => {
-        setUser( userSession )
-    }, [userSession]);
+        setUserRole( role )
+    }, [role]);
 
 
     return (
         <section className='nav-dashboard'>
             {
-                user === 'technician'? 
+                userRole === 'technician'? 
                 (
                     null
                 )
                 :
                 <ul className='menu-options'>
                     <li><Link to='/dashboard-manager/activity-List'>Maintenance Activities</Link></li>
-                    <li><Link to='/dashboard-manager/notification'>Notifications</Link></li>
+                    <li><Link to='/dashboard-manager/notification-List'>Notifications</Link></li>
                 </ul>
             }
         </section>

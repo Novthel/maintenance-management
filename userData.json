@@ -1,0 +1,42 @@
+ [
+    {
+    "names": "armando",
+    "lastnames":"paredes",
+    "code": "01",
+    "position": "mecanico",
+    "area": "khs",
+    "phone": 3000000,
+    "turn": "dia",
+    "email": "example@company.com",
+    "username": "aparedes",
+    "password": "password",
+    "role": "technician"
+  },
+  {
+
+    "names": "horacio",
+    "lastnames":"puertas",
+    "code": "02",
+    "position": "electricista",
+    "area": "sidel",
+    "phone": 3000000,
+    "turn": "dia",
+    "email": "example3@company.com",
+    "username": "hpuertas",
+    "password": "password2",
+    "role": "technician"
+  },
+  {
+    "names": "hugo",
+    "lastnames":"lopez",
+    "code": "03",
+    "position": "electromecanico",
+    "area": "sidel",
+    "phone": 30000045,
+    "turn": "dia",
+    "email": "example4@company.com",
+    "username": "hlopez",
+    "password": "password3",
+    "role": "technician"
+  }
+]

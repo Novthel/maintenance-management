@@ -4,45 +4,69 @@ import Search from "../common/search/Search";
 import SelectComp from "../common/select/SelectComp";
 import { BsFillEyeFill} from "react-icons/bs";
 import './list.scss'
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { getAllOrders, getOrderById, getOrderByStatus } from '../../api/ApiOrders';
 
 
 
 const ActivitiesList = () => {
 
-    const { userSession } = useContext( AppContext );
-    const [user, setUser] = useState('technician');
+    const params = useParams();
 
+    const [userRole, setUserRole] = useState(null);
+    const [list, setList] = useState([]);
+    const { role } = useContext(AppContext)
+
+    const options = [
+        { label: 'Status', value: 'all' },
+        { label: 'Pending', value: 'pending' },
+        { label: 'Executed', value: 'executed' },
+        { label: 'Finalized', value: 'finalized' },
+    ];
+
+    const handleChange =(e)=> {
+        const status = e.target.value;
+        if(status !== 'all'){
+            getOrderByStatus(status)
+            .then((res)=>{
+                if(res.state === 'Ok'){
+                    setList(res.data)
+                }
+            })
+        }else{
+            getAllOrders()
+            .then((res)=> {
+                if(res.state === 'Ok'){
+                    setList(res.data)
+                }
+            })
+        }
+    }
+
+    console.log(list)
     useEffect(()=>{
-        setUser( userSession )
-    },[userSession])
+        if(params.id){
+            getAllOrders()
+            .then(res => console.log(res))
+        }else {
+            if(role){
+                getAllOrders()
+                .then((res)=> {
+                    if(res.state === 'Ok'){
+                        setList(res.data)
+                    }
+                })
+            }
+        }
+       
+    },[role])
 
-    const list = [
-        {
-            code:'0001',
-            date: '2022-05-11',
-            activity: 'limpieza',
-            status: 'pending',
-        },
-        {
-            code:'0002',
-            date: '2022-05-11',
-            activity: 'carga',
-            status: 'finalized',
-        },
-        {
-            code:'0003',
-            date: '2022-05-11',
-            activity: 'desmonte',
-            status: 'executed',
-        },
-    ]
-
+    
     return (
         <>
             <div className="container col-12 sec-filter">
                 <Search />
-                <SelectComp />
+                <SelectComp  options={ options } handleChange={ handleChange } />
             </div>
 
             <div className="container">
@@ -58,19 +82,19 @@ const ActivitiesList = () => {
                         </thead>
 
                         <tbody>
-                            {list.map((o) => <tr key={o.code}>
-                                                <td>{o.code}</td>
-                                                <td>{new Date (o.date).toLocaleDateString('en-US', {year: 'numeric', month: '2-digit', day: '2-digit'})}</td>
+                            {list.map((o) => <tr key={o.ordernumber}>
+                                                <td>{o.ordernumber}</td>
+                                                <td>{new Date (o.ordercreationdate).toLocaleDateString()}</td>
                                                 <td>{o.activity}</td>
                                                 <td className="status">{ o.status }</td>
                                                 
                                                 {
-                                                    user === 'technician'?
+                                                    userRole === 'technician'?
                                                     (
-                                                        <td><Link to={`/dashboard-manager/create-Activity/${o.code}`}><BsFillEyeFill /></Link></td>
+                                                        <td><Link to={`/dashboard-manager/Activity/${o.ordernumber}`}><BsFillEyeFill /></Link></td>
                                                     )
                                                     :
-                                                    <td><Link to={`/dashboard-manager/activity-List/${o.code}`}><BsFillEyeFill /></Link></td>
+                                                    <td><Link to={`/dashboard-manager/activity-List/${o.ordernumber}`}><BsFillEyeFill /></Link></td>
                                                 }
                                             </tr>
                             )}

@@ -2,8 +2,8 @@
 
 .nav-dashboard {
     @include flex(flex-end, center);
-    height: 4rem;
-    margin-right: 3rem;
+    height: 3rem;
+    margin-right: 5rem;
     width: 100%;
     background-color: transparent;
     .menu-options {
@@ -20,7 +20,7 @@
 @media (max-width: 991.98px) { 
 
     .nav-dashboard {
-        margin-right: 1rem;
+        margin-right: 3rem;
         .menu-options {
             li {
                 a {
@@ -35,6 +35,7 @@
 @media (max-width: 376px) { 
 
     .nav-dashboard {
+        margin-right: 1rem;
         .menu-options {
             li {
                 a {

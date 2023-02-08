@@ -12,12 +12,16 @@
         @include format-font(600, 1rem, 24px );
     }
     td {
-        @include format-font(400, 1rem, 24px );
+        @include format-font(400, 0.9rem, 24px );
       
     }
     .status {
         text-transform: capitalize;
         @include format-font(700, 0.9rem, 16px );
+    }
+    .checkMark {
+        @include format-font(900, 1.1rem, 4px );
+
     }
 }
 
@@ -31,7 +35,7 @@
             @include format-font(600, 0.9rem, 16px );
         }
         td {
-            @include format-font(400, 0.9rem, 14px );
+            @include format-font(400, 0.8rem, 14px );
           
         }
         .status {

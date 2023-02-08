@@ -4,7 +4,7 @@
     @include flex(center, center);
     flex-direction: column;
     min-width: 100%;
-    padding-top: 3rem;
+    padding: 1rem;
 
     .employee-profile {    
         @include flex(center, center);
@@ -22,14 +22,15 @@
                     width: 100%;
                     @include flex(space-between, center);
                     span {
-                        @include format-font(600, 1rem, 24px);
+                        @include format-font(600, 0.9rem, 24px);
                     }
                     .input-profile {
-                        @include format-font(400, 1rem, 24px);
+                        @include format-font(400, 0.9rem, 24px);
                         padding: 0.5rem;
                         background-color: $background-input-order;
                         border: 1px solid $background-border-input-order;
                         outline: none;
+                        text-transform: capitalize;
                     }
                     .input-row {
                         @include flex(flex-start, center);
@@ -55,9 +56,10 @@
                 box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
             }
             .employee-name {
-                @include format-font(600, 1rem, 24px);
+                @include format-font(600, 0.9rem, 24px);
                 background-color: transparent;
                 border: none;
+                text-transform: capitalize;
             }
         }
     }

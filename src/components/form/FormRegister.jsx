@@ -18,30 +18,30 @@ export default function FormRegister() {
 
             <div className="row">
                 <div className='form-group col-12 col-md-6'>
-                    <label htmlFor="name"><span>Names *</span></label>
-                    <input type="text" name='name' className='form-control'  {...register('name',
+                    <label htmlFor="names"><span>Names *</span></label>
+                    <input type="text" name='names' className='form-control'  {...register('names',
                     {
                         required:true,
                         pattern: er.text
                     }) 
                     }/>
-                    { errors.name?.type === 'required' && <p className='text-danger small'>*Name is required</p> }
-                    { errors.name?.type === 'pattern' && 
+                    { errors.names?.type === 'required' && <p className='text-danger small'>*Name is required</p> }
+                    { errors.names?.type === 'pattern' && 
                     <p className='text-danger small'>
                         * only lowercase, uppercase, accents, and spaces.
                     </p> }
                 </div>
 
                 <div className='form-group col-12 col-md-6'>
-                    <label htmlFor="lastname"><span>LastNames *</span></label>
-                    <input type="text" name='lastname' className='form-control'  {...register('lastname',
+                    <label htmlFor="lastnames"><span>LastNames *</span></label>
+                    <input type="text" name='lastnames' className='form-control'  {...register('lastnames',
                     {
                         required:true,
                         pattern: er.text
                     }) 
                     }/>
-                    { errors.lastname?.type === 'required' && <p className='text-danger small'>*LastName is required</p> }
-                    { errors.lastname?.type === 'pattern' && 
+                    { errors.lastnames?.type === 'required' && <p className='text-danger small'>*LastName is required</p> }
+                    { errors.lastnames?.type === 'pattern' && 
                     <p className='text-danger small'>
                         * only lowercase, uppercase, accents, and spaces.
                     </p> }
@@ -153,6 +153,19 @@ export default function FormRegister() {
                     <label htmlFor="confirm"><span>Confirm Password *</span></label>
                     <input type="password" name='confirm' className='form-control'  {...register('confirm',{ required:true }) }/>
                     { errors.confirm?.type === 'required' && <p className='text-danger small'>*Password is required</p> }
+                </div>
+            </div>
+
+            <div className="row">
+                <div className='form-group col-6'>
+                <label htmlFor="Role"><span>Role</span></label>
+                  <select className='form-select mb-2' {...register('role')} >
+                        <option value="operator">Operator</option>
+                        <option value="technician">Technician</option>
+                        <option value="supervisor">Supervisor</option>
+                        <option value="leader">Leader</option>
+                        <option value="Admin">Admin</option>
+                  </select>
                 </div>
             </div>
             

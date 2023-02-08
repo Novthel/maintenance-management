@@ -12,8 +12,7 @@
 
 .container {
   min-width: 100%;
-  padding-left: 0;
-  padding-right: 0;
+  padding: 0;
 }
 
 // styles the form container section on different pages
@@ -41,25 +40,25 @@
     width: 100%;
     min-height: 100vh;
     flex-wrap: wrap;
-
+    padding: 0;
     .dashboard {
         @include flex(flex-start, center );
         flex-direction: column;
         background-color: $background-page-dashboard;
-        padding: 1rem 0;
+        padding: 0;
 
         .container-dashboard {
-          width: 95%;
-          min-height: 95%;
+          width: 90%;
+          height: 90vh;
           background-color: $background-container-dashboard;
-          border: 1px solid $background-sidebar;
+          border: 0.5px solid $background-sidebar;
           border-radius: 6px;
-
+          overflow-y: scroll;
+          
           .title-page {
             @include flex(center, center );
             padding-top: 1rem;
             background-color: $background-sidebar;
-            margin-bottom: 1rem;
             
             h1 {
               @include format-font(600, 1.8rem, 48px);

@@ -2,31 +2,24 @@ import { BsFillEyeFill } from "react-icons/bs";
 import './list.scss'
 import { Link } from "react-router-dom";
 import Search from '../common/search/Search';
+import { useState, useEffect } from "react";
+import { getAllUser } from "../../api/ApiUsers";
 
 
 
 const Employees = () => {
 
-    const toolList = [
-        {
-            codeEmployee:'01',
-            employeeName: 'ronald narvaez',
-            position: 'operario',
-            turn: 'dia'
-        },
-        {
-            codeEmployee:'02',
-            employeeName: 'evaristo gomez',
-            position: 'mecanico',
-            turn: 'noche'
-        },
-        {
-            codeEmployee:'03',
-            employeeName: 'raul jimenez',
-            position: 'electricista',
-            turn: 'dia'
-        },
-    ]
+   const [listEmployee, setListEmployee] = useState([]);
+
+   useEffect(() => {
+    getAllUser()
+        .then((res)=> {
+            if(res.state === 'Ok'){
+                setListEmployee(res.data)
+            }
+        })
+  
+   },[]);
 
     return (
         <>
@@ -47,12 +40,12 @@ const Employees = () => {
                         </thead>
 
                         <tbody>
-                            {toolList.map((e) => <tr key={ e.codeEmployee }>
-                                                    <td>{ e.codeEmployee }</td>
-                                                    <td>{ e.employeeName }</td>
+                            {listEmployee.map((e) => <tr key={ e._id }>
+                                                    <td>{ e.code }</td>
+                                                    <td>{ e.names } { e.lastnames }</td>
                                                     <td>{ e.position }</td>
                                                     <td>{ e.turn }</td>
-                                                    <td><Link to={`/dashboard-manager/employees/${ e.codeEmployee }`}><BsFillEyeFill /></Link></td>
+                                                    <td><Link to={`/dashboard-manager/employees/${ e._id }`}><BsFillEyeFill /></Link></td>
                                                 </tr>
                             )}
                             

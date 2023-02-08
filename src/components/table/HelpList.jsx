@@ -4,16 +4,16 @@ import SelectComp from "../common/select/SelectComp";
 import { BsFillEyeFill} from "react-icons/bs";
 import { FcCheckmark } from "react-icons/fc";
 import { Link } from "react-router-dom";
-import { getAllNotifications, getNotificationsByPriority } from '../../api/ApiNotifications';
+import { getAllRequest, getRequireByPriority } from '../../api/ApiRequest';
 
 
 
 
-const NotificationList = () => {
+const HelpList = () => {
 
-    const [notificationList, setNotificationList] = useState([]);
+    const [requestList, setRequestList] = useState([]);
 
-
+    console.log(requestList)
     const options = [
         { label: 'Priority', value: 'all' },
         { label: 'Priority 1', value: 'Priority 1' },
@@ -25,27 +25,27 @@ const NotificationList = () => {
         const priority = e.target.value;
      
         if(priority !== 'all'){
-            getNotificationsByPriority(priority)
+            getRequireByPriority(priority)
             .then((res)=>{
                 if(res.state === 'Ok'){
-                    setNotificationList(res.data)
+                    setRequestList(res.data)
                 }
             })
         }else{
-            getAllNotifications()
+            getAllRequest()
             .then((res)=> {
                 if(res.state === 'Ok'){
-                    setNotificationList(res.data)
+                    setRequestList(res.data)
                 }
             })
         }
     }
 
     useEffect(()=>{
-        getAllNotifications()
+        getAllRequest()
         .then((res)=> {
             if(res.state === 'Ok'){
-                setNotificationList(res.data)
+                setRequestList(res.data)
             }
         })
     },[])
@@ -63,22 +63,20 @@ const NotificationList = () => {
                             <tr>
                                 <th scope="col">Date</th>
                                 <th scope="col">Description</th>
-                                <th scope="col">Machine</th>
-                                <th scope="col">Area</th>
+                                <th scope="col">Position</th>
                                 <th scope="col">Priority</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            {notificationList.map((n) => <tr key={n._id}>
+                            {requestList.map((req) => <tr key={req._id}>
                                                 
-                                                <td>{new Date (n.requirementdate).toLocaleDateString('en-US', {year: 'numeric', month: '2-digit', day: '2-digit'})}</td>
-                                                <td>{ n.descriptionproblem }</td>
-                                                <td>{ n.machine }</td>
-                                                <td>{ n.area }</td>
-                                                <td className="status">{ n.priority }</td>
-                                                <td><Link to={`/dashboard-manager/notification/${ n._id }`}><BsFillEyeFill /></Link></td>
-                                                <td className="checkMark">{ n.status === 'processed' ? <FcCheckmark/> : null }</td>
+                                                <td>{new Date (req.requirementdate).toLocaleDateString('en-US', {year: 'numeric', month: '2-digit', day: '2-digit'})}</td>
+                                                <td>{ req.descriptionproblem }</td>
+                                                <td>{ req.position }</td>
+                                                <td className="status">{ req.priority }</td>
+                                                <td><Link to={`/dashboard-manager/help/${ req._id }`}><BsFillEyeFill /></Link></td>
+                                                <td className="checkMark">{ req.status === 'processed' ? <FcCheckmark/> : null }</td>
                                             </tr>
                             )}   
                         </tbody>
@@ -90,4 +88,4 @@ const NotificationList = () => {
     );
 }
 
-export default NotificationList;
+export default HelpList;

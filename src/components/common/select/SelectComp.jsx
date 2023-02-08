@@ -1,15 +1,16 @@
 import React from 'react';
 import './selectComp.scss'
 
-const SelectComp = () => {
+const SelectComp = ({ options, value, handleChange }) => {
 
     return (
-        <select className="status-activity" id="select">
-            <option  className='option-selected' selected>Status</option>
-            <option  className='option-value' value="pending">Pending</option>
-            <option  className='option-value' value="executed">Executed</option>
-            <option  className='option-value' value="finalized">Finalized</option>
-        </select>
+        <label>
+            <select value={ value } onChange={ handleChange }  className='status-activity' >
+                {options.map((option) => (
+                    <option key={ option.label } value={option.value}>{option.label}</option>
+                ))}
+            </select>
+        </label>
     );
 }
 
