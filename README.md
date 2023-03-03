@@ -14,4 +14,4 @@ Frontend: Elaborado en ReactJS, SASS, Bootstrap5.
 
 Backend: Elaborado con NodeJs – Express – MongoDB - JWT 
 -Autenticación de usuarios (JWT) - Protección de rutas (middlewares)
-- Configuración y elaboración de endpoints Backend.Aplicación web diseñada para gestionar  el departamento de mantenimiento de una empresa
+- Configuración y elaboración de endpoints Backend.
