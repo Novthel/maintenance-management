@@ -1,70 +1,17 @@
-# Getting Started with Create React App
+SOFTWARE DE GESTION DE MANTENIMIENTO
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicación web diseñada para gestionar  el departamento de mantenimiento de una empresa.
 
-## Available Scripts
+El programa maneja diferentes usuarios que tienen permisos dependiendo del rol.
 
-In the project directory, you can run:
+-Rol Admin: Tiene completo control de todas las funcionalidades del programa, sin embargo es el único que tiene permisos para registrar nuevos usuarios.
+-Rol Leader: Puede listar empleados, actividades de mantenimiento, repuestos de almacén, notificaciones o avisos de mantenimiento y crear ordenes de mantenimiento.
+-Rol technician: Puede ver las ordenes de mantenimiento q le son asignadas y ejecutarlas, notificar o dar avisos de solicitud de mantenimiento, notificar problemas al usar la plataforma.
+-Rol operator: solo tiene acceso a una pagina para notificar fallas en los equipos.
 
-### `npm start`
+Frontend: Elaborado en ReactJS, SASS, Bootstrap5.  
+-Protección de rutas (roles) -Creación de interfaces para la gestión de órdenes de mantenimiento.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Backend: Elaborado con NodeJs – Express – MongoDB - JWT 
+-Autenticación de usuarios (JWT) - Protección de rutas (middlewares)
+- Configuración y elaboración de endpoints Backend.Aplicación web diseñada para gestionar  el departamento de mantenimiento de una empresa
