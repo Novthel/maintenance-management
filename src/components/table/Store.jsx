@@ -1,5 +1,5 @@
 import './list.scss'
-import Search from '../common/search/Search';
+import SearchFile from '../common/search/SearchFile';
 
 
 
@@ -29,12 +29,12 @@ const Store = () => {
     return (
         <>
             <div className="container col-12 sec-filter">
-                <Search />
+                <SearchFile />
             </div>
 
             <div className="container">
                 <div className='table-responsive'>
-                    <table className="table table-hover table-bordered table-striped text-center w-90 m-auto " >
+                    <table className="table table-hover table-striped text-center w-90 m-auto " >
                         <thead>
                             <tr>
                                 <th scope="col">Code</th>

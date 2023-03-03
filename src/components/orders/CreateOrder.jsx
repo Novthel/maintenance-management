@@ -5,32 +5,74 @@ import { er } from '../../utils/RegularExpression';
 import { newOrder } from '../../api/ApiOrders';
 import { useEffect, useState } from 'react';
 import { getUserByRole } from '../../api/ApiUsers.js';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getNotificationsById } from '../../api/ApiNotifications';
 
 
 export default function CreateOrder() {
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm({});
-    const [userList, setUserList] = useState([]);
+    const [ListTechnician, setListTechnician] = useState([]);
+    const [ListLeader, setListLeader] = useState([]);
+    const [data, setData] = useState([]);
+    const [ userRequest, setUserRequest ] = useState('');
+    const params = useParams();
+    const navigate = useNavigate()
+
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({
+        defaultValues: data
+    });
+    
 
     const onSubmit = data => {
         const ordercreationdate = new Date()
         const ordernumber = 0
-        const newData = {
-            ...data, ordercreationdate,
-            ordernumber
+        const requestby = userRequest
+        
+        if(params.id){
+            const newData = {
+                ...data, ordercreationdate,
+                ordernumber, requestby
+            } 
+            newOrder(newData)
+                .then((res)=>{
+                    alert(res.msj) 
+                    reset()
+                    navigate('/dashboard-manager/activity-List')
+                })
+                .catch(error => console.log(error))
+        }else {
+            const newData = {
+                ...data, ordercreationdate,
+                ordernumber
+            }
+            newOrder(newData)
+                .then((res)=>{
+                    alert(res.msj) 
+                    reset()
+                    navigate('/dashboard-manager/activity-List')
+                })
+                .catch(error => console.log(error))
         }
-        console.log(newData)
-        newOrder(newData)
-            .then((res)=>{
-                alert(res.msj) 
-               reset()
-            })
+        
     }
 
     useEffect(()=>{
+        if(params.id){
+            getNotificationsById(params.id)
+            .then(res =>{
+                const userInfo = res.data.userInfo
+                setUserRequest(`${ userInfo.names } ${ userInfo.lastnames }`)
+                setData(res.data.notification)
+                reset(res.data.notification)
+            })
+        }
         getUserByRole('technician')
-            .then(res => setUserList(res.data))
-    },[])
+            .then(res => setListTechnician(res.data))
+            .catch(error => console.log(error))
+        getUserByRole('leader')
+            .then(res => setListLeader(res.data))
+            .catch(error => console.log(error))
+    },[params.id, reset])
 
   return (
 
@@ -45,7 +87,7 @@ export default function CreateOrder() {
                 </div>
 
                 <div className="select col-12">
-                    <select className="priority col-5 col-sm-3" id="priority-order" {...register("priority")}>
+                    <select className="priority col-5 col-sm-3" {...register("priority")}>
                         <option  className='option-selected' value="Priority 1">Priority 1</option>
                         <option  className='option-value' value="Priority 2">Priority 2</option>
                         <option  className='option-value' value="Priority 3">Priority 3</option>
@@ -53,30 +95,46 @@ export default function CreateOrder() {
                 </div>   
             </div>
 
+            <br></br>
+
             <div className='form-line'>
-                <div className='input-row2 col-12 col-md-8'>
-                    <label htmlFor="requestby"><span>Request by:</span></label>
-                    <input type="text" name='requestby' className='input-order' {...register('requestby',
-                    {
-                        required:true,
-                        pattern: er.text
-                    }) 
-                    }/>
-                    { errors.requestby?.type === 'required' && <p className='text-danger small'>*Request by is required</p> }
-                    { errors.requestby?.type === 'pattern' && 
-                    <p className='text-danger small'>
-                        * only lowercase, uppercase, accents, and spaces.
-                    </p> }
-                </div>
+                {
+                    params.id?
+                   
+                        <div className='input-row2 col-12 col-md-8'>
+                            <label htmlFor="requestby"><span>Request by:</span></label>
+                            <input type="text" name='requestby' className='input-order' value={ userRequest } disabled/>
+                        </div>
+                        :
+                        <div className='input-row2 col-12 col-md-8'>
+                            <label htmlFor="requestby"><span>Request by:</span></label>
+                            <input type="text" name='requestby' className='input-order' {...register('requestby',
+                            {
+                                required:true,
+                                pattern: er.text,
+                                maxLength:150
+                            }) 
+                            }/>
+                            { errors.requestby?.type === 'required' && <p className='text-danger small'>*Request by is required</p> }
+                            { errors.requestby?.type === 'pattern' && 
+                            <p className='text-danger small'>
+                                * only lowercase, uppercase, accents, and spaces.
+                            </p> }
+                            {errors.requestby?.type === "maxLength" && <p className='text-danger small'>*Max length exceeded</p> }
+                        </div>
+                }
+                
 
                 <div className='input-row2 col-12 col-md-3'>
                     <label htmlFor="area"><span>Area:</span></label>
-                    <input type="text" name='area' className='input-order' {...register('area',
+                    <input type="text" name='area' className='input-order' disabled={ params.id? 'disabled': '' }  {...register('area',
                     {
-                        required:true
+                        required:true,
+                        maxLength:100
                     }) 
                     }/>
                     { errors.area?.type === 'required' && <p className='text-danger small'>*Area is required</p> }
+                    {errors.area?.type === "maxLength" && <p className='text-danger small'>*Max length exceeded</p> }
                 </div>
             </div>
 
@@ -97,7 +155,7 @@ export default function CreateOrder() {
             <div className='form-line'>
                 <div className='input-row2 col-12 col-sm-4'>
                     <label htmlFor="areasupervisor"><span>Area Supervisor:</span></label>
-                    <input type="text" name='areasupervisor' className='input-order' {...register('areasupervisor',
+                    <input type="text" name='areasupervisor' className='input-order' disabled={ params.id? 'disabled': ''}  {...register('areasupervisor',
                     {
                         required:true,
                         pattern: er.text,
@@ -114,7 +172,7 @@ export default function CreateOrder() {
 
                 <div className='input-row2 col-5 col-sm-3'>
                     <label htmlFor="machine"><span>Machine:</span></label>
-                    <input type="text" name='machine' className='input-order' {...register('machine',
+                    <input type="text" name='machine' className='input-order' disabled={ params.id? 'disabled': ''}  {...register('machine',
                     {
                         required:true,
                         maxLength: 250
@@ -123,16 +181,26 @@ export default function CreateOrder() {
                     { errors.machine?.type === 'required' && <p className='text-danger small'>*Machine is required</p> }
                     {errors.machine?.type === "maxLength" && <p className='text-danger small'>*Max length exceeded</p> }
                 </div>
-
-                <div className='input-row2 col-5 col-sm-3'>
-                    <label htmlFor="requirementdate"><span>Requirement Date:</span></label>
-                    <input type="date" name='requirementdate' className='input-order' {...register('requirementdate',
-                    {
-                        required:true
-                    }) 
-                    }/>
-                    { errors.requirementdate?.type === 'required' && <p className='text-danger small'>*Date is required</p> }
-                </div>
+                {
+                    params.id?
+                    <div className='input-row2 col-5 col-sm-3'>
+                        <label htmlFor="requirementdate"><span>Requirement Date:</span></label>
+                        <input type="text" name='requirementdate' className='input-order' 
+                        defaultValue={ new Date ().toLocaleDateString() } disabled />
+                    </div>
+                    :
+                    <div className='input-row2 col-5 col-sm-3'>
+                        <label htmlFor="requirementdate"><span>Requirement Date:</span></label>
+                        <input type='date' name='requirementdate' className='input-order'
+                            {...register('requirementdate',
+                                {
+                                    required:true
+                                }) 
+                            }/>
+                        { errors.requirementdate?.type === 'required' && <p className='text-danger small'>*Date is required</p> }
+                    </div>
+                }
+                
             </div>
 
             <div className='form-line'>
@@ -152,91 +220,35 @@ export default function CreateOrder() {
             <div className='form-line'>
                 <div className='input-row2 col-12 col-sm-5'>
                     <label htmlFor="createby"><span>Create by:</span></label>
-                    <input type="text" name='createby' className='input-order' {...register('createby',
+                    <select className="col-12 select-tech"  {...register("createby",
                     {
                         required:true,
-                        pattern: er.text,
-                        maxLength: 150
-                    }) 
-                    }/>
-                    { errors.createby?.type === 'required' && <p className='text-danger small'>*Create by is required</p> }
-                    { errors.createby?.type === 'pattern' && 
-                    <p className='text-danger small'>
-                        * only lowercase, uppercase, accents, and spaces.
-                    </p> }
-                    {errors.createby?.type === "maxLength" && <p className='text-danger small'>*Max length exceeded</p> }
+                    })
+                    } >
+                        <option value="">-- Select Leader --</option>
+                        {
+                            ListLeader.map(u => <option className='option-tech' key={u._id} value={u._id} > { u.names } { u.lastnames }</option>)
+                        }
+                    </select>
+                    { errors.asignateto?.type === 'required' && <p className='text-danger small'>*Asigned to is required</p> }
                 </div>
                 
-                <div className='input-row2 col-12 col-sm-4'>
+                <div className='input-row2 col-12 col-sm-5'>
                     <label htmlFor="asignateto"><span>Assigned to:</span></label>
-                    <select className="col-12"  {...register("asignateto")} >
-                        <option value="">-- Seleccione --</option>
+                    <select className="col-12 select-tech"  {...register("asignateto",
+                    {
+                        required:true,
+                    })
+                    } >
+                        <option value="">-- Select Technician --</option>
                         {
-                            userList.map(u => <option key={u._id} value={u._id} >{ u.names } { u.lastnames }</option>)
+                            ListTechnician.map(u => <option className='option-tech' key={u._id} value={u._id} > { u.names } { u.lastnames } -  { u.position } </option>)
                         }
                     </select>
+                    { errors.asignateto?.type === 'required' && <p className='text-danger small'>*Asigned to is required</p> }
                 </div>
 
-                {/* <div className='input-row2 col-12 col-sm-3'>
-                    <label htmlFor="ordercreationdate"><span>Order Creation Date:</span></label>
-                    <input type="date" name='ordercreationdate' className='input-order' {...register('ordercreationdate',
-                    {
-                        required:true
-                    }) 
-                    }/>
-                    { errors.ordercreationdate?.type === 'required' && <p className='text-danger small'>*Date is required</p> }
-                </div> */}
             </div>
-
-            {/* <div className='form-line'>
-                <div className="select col-12">
-                <label htmlFor="asignateto"><span>Assigned to:</span></label>
-                    <select className="col-5 col-sm-3"  {...register("asignateto")} >
-                        <option value="">-- Seleccione --</option>
-                        {
-                            userList.map(u => <option key={u._id} value={u._id} >{ u.names } { u.lastnames }</option>)
-                        }
-                    </select>
-                </div>
-            </div> */}
-
-            {/* <div className='form-line'>
-                <div className='input-row2 col-12 col-sm-8'>
-                    <label htmlFor="asignateto"><span>Assigned to:</span></label>
-                    <input type="text" name='asignateto' className='input-order' {...register('asignateto',
-                    {
-                        required:true,
-                        pattern: er.text,
-                        maxLength: 150
-                    }) 
-                    }/>
-                    { errors.asignateto?.type === 'required' && <p className='text-danger small'>*Assigned to is required</p> }
-                    { errors.asignateto?.type === 'pattern' && 
-                    <p className='text-danger small'>
-                        * only lowercase, uppercase, accents, and spaces.
-                    </p> }
-                    {errors.asignateto?.type === "maxLength" && <p className='text-danger small'>*Max length exceeded</p> }
-                </div> 
-
-                <div className='input-row2 col-12 col-sm-3'>
-                    <label htmlFor="code"><span>Code Employee:</span></label>
-                    <input type="text" name='code' className='input-order' {...register('code',
-                    {
-                        required:true,
-                        pattern: er.code,
-                        maxLength: 16,
-                        minLength:2
-                    }) 
-                    }/>
-                    { errors.code?.type === 'required' && <p className='text-danger small'>*Code is required</p> }
-                    { errors.code?.type === 'pattern' && 
-                    <p className='text-danger small'>
-                        * lowercase letters, uppercase letters, numbers, underscore, and hyphen. code must be between 2 and 16 characters.
-                    </p> }
-                    {errors.code?.type === "maxLength" && <p className='text-danger small'>*Max length exceeded</p> }
-                    {errors.code?.type === "minLength" && <p className='text-danger small'>*Min length is 2 characters</p> }
-                </div>
-            </div> */}
 
             <div className='form-line'>
                 <div className='input-row2 col-12 col-sm-4'>
@@ -254,7 +266,9 @@ export default function CreateOrder() {
                     <input type="date" name='enddate' className='input-order' {...register('enddate')} />
                 </div>
             </div>
+
             <br></br>
+            
             <div className='form-line'>
                 <div className='input-row2 col-12 '>
                     <label htmlFor="spareparts"><span>Spare parts and special tools needed: </span></label>

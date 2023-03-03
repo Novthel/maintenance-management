@@ -12,6 +12,22 @@ export async function Login (props) {
     return result
 }
 
+export async function UserRegister (body) {
+
+    const { names, lastnames, username, password, position, 
+    phone, area, email, role, code } = body
+
+    const result = await fetch( path + "users/new", {
+        headers: { "content-type": "application/json",
+        "authorization": `Bearer ${token}`
+        },
+        method: "POST",
+        body: JSON.stringify( { names, lastnames, username, password, position, 
+            phone, area, email, role, code })
+    }).then(res => res.json())
+    return result
+}
+
 export async function getUser(id){
     if(id){
         const result = await fetch( path + 'users/' + id, {

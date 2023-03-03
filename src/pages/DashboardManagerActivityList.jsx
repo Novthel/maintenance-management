@@ -1,26 +1,23 @@
-
-import MenuDashboard from "../components/menu/MenuDashboard";
-import Sidebar from "../components/sidebar/Sidebar";
+import { useContext } from "react";
 import ActivitiesList from "../components/table/ActivitiesList";
+import { AppContext } from "../context/UserProvider";
+import DashboardManager from "./DashboardManager";
 
 
 
 export default function DashboardManagerActivityList() {
 
+  const { role, id } = useContext(AppContext)
 
   return (
-    <div className="container pag-dashboard">
 
-        <Sidebar />
-        <section className="dashboard col-12 col-md-9">
-          <MenuDashboard />
-          <section className="container-dashboard">
-            <section className="title-page">
-              <h1>List of maintenance activities</h1>
-            </section>
-            <ActivitiesList />
-          </section> 
-        </section> 
-    </div>
+    <>
+      <DashboardManager>
+        <section className="title-page">
+          <h1>List of maintenance activities</h1>
+        </section>
+        <ActivitiesList role={ role } id={ id } />
+      </DashboardManager>
+    </>
   )
 }

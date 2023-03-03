@@ -21,7 +21,7 @@ export default function FormHelp() {
     const [position, setPosition] = useState('');
     const [lastname, setLastname] = useState('');
 
-    const { register, handleSubmit, resetField, reset, formState: { errors } } = useForm({
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({
         defaultValues: requestData
     });
 
@@ -30,19 +30,21 @@ export default function FormHelp() {
         if(params.id){
             const status = 'processed'
             const newData = { ...data, status }
-            console.log(newData)
-            processRequest(newData).then((res)=>{
-                navigate(-1)
-            })
+            processRequest(newData)
+                .then((res)=>{
+                    navigate(-1)
+                })
+                .catch(error => console.log(error))
 
         }else {
-            const requestby = `${ name } ${lastname}`
-            const newData = { ...data, requestby, position }
-            newRequestHelp(newData).then((res)=>{
-                alert(res.msj)
-                resetField('descriptionproblem')
-                resetField('priority')
-            })
+            const requestby = id
+            const newData = { ...data, requestby }
+            newRequestHelp(newData)
+                .then((res)=>{
+                    alert(res.msj)
+                    reset()
+                })
+                .catch(error => console.log(error))
         }
     }
 
@@ -50,19 +52,30 @@ export default function FormHelp() {
         if(params.id){
             getRequestById(params.id)
                 .then((res)=>{
-                    setRequestData(res.data)
-                    reset(res.data)
+                    const userInfo = res.data.userInfo
+                    setName(userInfo.names)
+                    setLastname(userInfo.lastnames)
+                    setPosition(userInfo.position)
+                    setRequestData(res.data.request)
+                    reset(res.data.request)
                 })
+                .catch(error => console.log(error))
         }else{
             getUser(id).then((res)=>{
-                if(res.state === 'Ok'){
-                    setName(res.data.names)
-                    setLastname(res.data.lastnames)
-                    setPosition(res.data.position)
-                }  
+                if(res){
+                    if(res.state === 'Ok'){ 
+                        setName(res.data.names)
+                        setLastname(res.data.lastnames)
+                        setPosition(res.data.position)
+                    }  
+                    else {
+                        alert(res.msj)
+                    }
+                }
             })
         }  
     },[id, params.id, reset])
+
 
   return (
         <div className='container comp-request'>
@@ -73,11 +86,11 @@ export default function FormHelp() {
                 <div className='form-line'>
                     <div className='input-row2 col-12 col-sm-6'>
                         <label htmlFor="requestby"><span>Request by:</span></label>
-                        <input type="text" name='requestby' className='input-request' value={ `${name} ${lastname} ` } disabled {...register('requestby')} />
+                        <input type="text" name='requestby' className='input-request' value={ `${name} ${lastname} ` } disabled />
                     </div>
                     <div className='input-row2 col-12 col-sm-4'>
                         <label htmlFor="position"><span>Position:</span></label>
-                        <input type="text" name='position' className='input-request' value={ position } disabled {...register('position')} />
+                        <input type="text" name='position' className='input-request' value={ position } disabled />
                     </div>
                 </div>
 
@@ -87,7 +100,9 @@ export default function FormHelp() {
                         (
                             <div className='input-row2 col-12 col-sm-4'>
                                 <label htmlFor="requirementdate"><span>Requirement date:</span></label>
-                                <input type="text" name='requirementdate' className='input-request'  disabled {...register('requirementdate')} />
+                                <input type="text" name='requirementdate' className='input-request'  disabled
+                                     value={ new Date (requestData.requirementdate).toLocaleDateString() }
+                                />
                             </div>
                         )
                         :
@@ -101,7 +116,7 @@ export default function FormHelp() {
                         {
                             params.id?
                             (
-                                <div className='input-row2 col-12 col-sm-6'>
+                                <div className='input-row2 col-12 col-sm-7'>
                                     <label htmlFor="priority"><span>Priority:</span></label>
                                     <input type="text" name='priority' className='input-request' disabled {...register('priority')} />
                                 </div>
@@ -141,7 +156,13 @@ export default function FormHelp() {
                     params.id? 
                     (
                         <div className='sec-btn-send col-3'>
-                            <ButtonComp className='btn-submit' type='submit' disabled={ requestData.status === 'processed'? 'disabled': ''} ><AiOutlineCheck /></ButtonComp>
+                            {
+                                requestData.status !=='processed'?
+                                    <ButtonComp className='btn-submit' ><AiOutlineCheck /></ButtonComp>
+                                    :
+                                    null
+                            }
+                         
                         </div> 
                     )
                     :

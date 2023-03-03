@@ -1,21 +1,19 @@
-import { useState, useContext, useEffect } from 'react';
-import { AppContext } from '../../context/UserProvider';
-import Search from "../common/search/Search";
+import { useState, useEffect } from 'react';
 import SelectComp from "../common/select/SelectComp";
 import { BsFillEyeFill} from "react-icons/bs";
 import './list.scss'
-import { Link, useParams } from "react-router-dom";
-import { getAllOrders, getOrderById, getOrderByStatus } from '../../api/ApiOrders';
+import { Link } from "react-router-dom";
+import { getAllOrders, getByOrderAssignment } from '../../api/ApiOrders';
+import SearchFile from '../common/search/SearchFile';
 
 
 
-const ActivitiesList = () => {
+const ActivitiesList = ({ role, id}) => {
 
-    const params = useParams();
-
-    const [userRole, setUserRole] = useState(null);
     const [list, setList] = useState([]);
-    const { role } = useContext(AppContext)
+    const [query, setQuery] = useState("");
+
+    const keys = [ "ordernumber", "activity" ];
 
     const options = [
         { label: 'Status', value: 'all' },
@@ -26,52 +24,96 @@ const ActivitiesList = () => {
 
     const handleChange =(e)=> {
         const status = e.target.value;
-        if(status !== 'all'){
-            getOrderByStatus(status)
-            .then((res)=>{
+
+        if(role === 'technician'){
+            getByOrderAssignment(id)
+            .then((res)=> {
                 if(res.state === 'Ok'){
-                    setList(res.data)
+                    if(status !== 'all'){
+                        const list = res.data
+                        const newList = list.filter((list)=> list.orderstatus === status)
+                        setList(newList)
+                    }else {
+                        setList(res.data)
+                    }
+                }
+                else {
+                    alert(res.msj)
                 }
             })
-        }else{
+            .catch( error => console.log(error)) 
+        }else {
             getAllOrders()
             .then((res)=> {
                 if(res.state === 'Ok'){
-                    setList(res.data)
+                    if(status !== 'all'){
+                        const list = res.data
+                        const newList = list.filter((list)=> list.orderstatus === status)
+                        setList(newList)
+                    }else {
+                        setList(res.data)
+                    }
+                }
+                else {
+                    alert(res.msj)
                 }
             })
+            .catch( error => console.log(error)) 
         }
     }
 
-    console.log(list)
+
     useEffect(()=>{
-        if(params.id){
-            getAllOrders()
-            .then(res => console.log(res))
+
+        if(role === 'technician'){
+            getByOrderAssignment(id)
+                .then(res => {
+                    if(res.state === 'Ok'){
+                        if(query.length === 0 || query.length < 2){
+                            setList(res.data)
+                        }
+                        else{
+                            const list = res.data
+                            setList(list.filter((item) =>
+                                keys.some((key) => item[key].toString().toLowerCase().includes(query))))
+                        }  
+                    }
+                    else {
+                        alert(res.msj)
+                    }
+                })
+                .catch( error => console.log(error))
         }else {
             if(role){
                 getAllOrders()
-                .then((res)=> {
-                    if(res.state === 'Ok'){
-                        setList(res.data)
-                    }
-                })
+                    .then((res)=> {
+                        if(query.length === 0 || query.length < 2){
+                            setList(res.data)
+                        }
+                        else{
+                            const list = res.data
+                            setList(list.filter((item) =>
+                                keys.some((key) => item[key].toString().toLowerCase().includes(query))))
+                        }  
+                    })
+                    .catch( error => console.log(error))
             }
         }
        
-    },[role])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[id, query, role])
 
-    
     return (
         <>
             <div className="container col-12 sec-filter">
-                <Search />
+               
+                <SearchFile  setQuery={ setQuery } />      
                 <SelectComp  options={ options } handleChange={ handleChange } />
             </div>
 
             <div className="container">
                 <div className="table-responsive">
-                    <table className="table table-hover table-bordered table-striped text-center w-90 m-auto">
+                    <table className="table table-hover table-striped text-center w-90 m-auto">
                         <thead>
                             <tr>
                                 <th scope="col">Order N°</th>
@@ -82,19 +124,19 @@ const ActivitiesList = () => {
                         </thead>
 
                         <tbody>
-                            {list.map((o) => <tr key={o.ordernumber}>
+                            {list.map((o) => <tr key={o._id}>
                                                 <td>{o.ordernumber}</td>
                                                 <td>{new Date (o.ordercreationdate).toLocaleDateString()}</td>
                                                 <td>{o.activity}</td>
-                                                <td className="status">{ o.status }</td>
+                                                <td className="status" ><span className={ o.orderstatus === 'pending'? "text-warning": o.orderstatus === 'finalized'? "text-danger" : "text-primary" }>{ o.orderstatus }</span></td>
                                                 
                                                 {
-                                                    userRole === 'technician'?
+                                                    role === 'technician'?
                                                     (
-                                                        <td><Link to={`/dashboard-manager/Activity/${o.ordernumber}`}><BsFillEyeFill /></Link></td>
+                                                        <td><Link to={`/dashboard-manager/Activity/${o._id}`}><BsFillEyeFill /></Link></td>
                                                     )
                                                     :
-                                                    <td><Link to={`/dashboard-manager/activity-List/${o.ordernumber}`}><BsFillEyeFill /></Link></td>
+                                                    <td><Link to={`/dashboard-manager/activity-List/${o._id}`}><BsFillEyeFill /></Link></td>
                                                 }
                                             </tr>
                             )}

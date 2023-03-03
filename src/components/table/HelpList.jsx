@@ -13,7 +13,6 @@ const HelpList = () => {
 
     const [requestList, setRequestList] = useState([]);
 
-    console.log(requestList)
     const options = [
         { label: 'Priority', value: 'all' },
         { label: 'Priority 1', value: 'Priority 1' },
@@ -30,14 +29,22 @@ const HelpList = () => {
                 if(res.state === 'Ok'){
                     setRequestList(res.data)
                 }
+                else{
+                    alert(res.msj)
+                }
             })
+            .catch( error => console.log(error))
         }else{
             getAllRequest()
             .then((res)=> {
                 if(res.state === 'Ok'){
                     setRequestList(res.data)
                 }
+                else{
+                    alert(res.msj)
+                }
             })
+            .catch( error => console.log(error))
         }
     }
 
@@ -47,7 +54,11 @@ const HelpList = () => {
             if(res.state === 'Ok'){
                 setRequestList(res.data)
             }
+            else{
+                alert(res.msj)
+            }
         })
+        .catch( error => console.log(error))
     },[])
 
     return (
@@ -58,7 +69,7 @@ const HelpList = () => {
 
             <div className="container">
                 <div className='table-responsive'>
-                    <table className="table table-hover table-bordered table-striped text-center w-90 m-auto">
+                    <table className="table table-hover table-striped text-center w-90 m-auto">
                         <thead>
                             <tr>
                                 <th scope="col">Date</th>

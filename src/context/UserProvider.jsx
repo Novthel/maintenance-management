@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import jwt_decode from "jwt-decode";
+import { getCompany } from '../api/ApiCompany';
 
 export const AppContext = createContext();
 
@@ -9,8 +10,9 @@ export default function UserProvider({ children }) {
     const [username, setUsername ] = useState(null)
     const [name, setName] = useState(null);
     const [lastname, setLastName] = useState(null);
-    
-    const DecodedToken = ()=> {
+    const [businessName, setBusinessName] = useState('');
+
+   const decodedToken=()=>{
         try {
             if(localStorage.getItem('token')){
                 const token = localStorage.getItem('token')
@@ -23,16 +25,20 @@ export default function UserProvider({ children }) {
             }
         } catch (error) {
             console.log(error)
-        }     
-    }
-
+        }
+   }
+    
     useEffect(()=>{
-        DecodedToken()
+      decodedToken()
+      getCompany()
+        .then((res)=>{
+          setBusinessName(res.data.businessName)
+        })
     },[role])
   
    
     return (
-        <AppContext.Provider value={ { role, username, DecodedToken, name, lastname, id } }  >
+        <AppContext.Provider value={ { role, username, name, lastname, id, decodedToken, businessName } }  >
             { children }
         </AppContext.Provider>
     )

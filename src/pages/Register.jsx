@@ -1,4 +1,5 @@
 import { useContext, useState, useEffect } from 'react'
+import NavigatePage from '../components/common/navigate/NavigatePage';
 import FormRegister from '../components/form/FormRegister';
 import FormRegisterCompany from '../components/form/FormRegisterCompany';
 import Header from '../components/header/Header'
@@ -19,10 +20,14 @@ export default function Register() {
     }, [role]);
 
   return (
-      <div className='container'>
+      <div className='container pag-register'>
           <Header registerView={ registerView } userRole={ userRole } />
-
+          <div className='nav-history'>
+            <NavigatePage />
+          </div>
+      
           <section className='sec-form'>
+    
             { formView === 'bussines' && <FormRegisterCompany /> }
             { formView === 'users' && <FormRegister /> }
          

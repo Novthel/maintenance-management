@@ -1,0 +1,16 @@
+@use "../../../scss/" as *;
+
+.navigate {
+
+    @include flex(flex-end, center);
+    @include format-font(400, 0.9rem, 20px);
+    margin: 1rem;
+    gap: 1rem;
+}
+
+@media (max-width: 767.98px) { 
+    .navigate {
+        @include format-font(400, 0.7rem, 20px);
+        gap: 0.5rem;
+    }
+}

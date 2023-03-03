@@ -1,4 +1,4 @@
-import logo from '../../assets/logo192.png';
+import logo from '../../assets/hair-brush.webp';
 import './header.scss'
 import ButtonComp from '../common/button/ButtonComp';
 import { useEffect, useState } from 'react';
@@ -19,9 +19,10 @@ const Header = ({ registerView, userRole }) => {
 
   return (
     <section className="container-header">
-        <img className='logo-company' src={ logo } alt='logo-company' />
-        
-
+        <div className="logo-header">
+            <img className='logo-company' src={ logo } alt='logo-company' />
+            <p>Plasticos Vanilux</p>
+        </div>
           {
             role === 'admin'?
             ( 

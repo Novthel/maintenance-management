@@ -7,38 +7,47 @@
     @include flex(flex-start, center);
     flex-direction: column;
     width: 100%;
-    .logo-sidebar {
-        margin-top: 2rem;
-        margin-bottom: 1rem;
-        width: 7rem;
+    padding: 1rem;
+    gap: 2rem;
+    .company {
+        @include flex(center, center);
+        flex-direction: column;
+        width: 90%;
+        .logo-sidebar {
+            width: 7rem;
+        }
+        .title-company {
+            color: $color-text-form;
+            @include format-font(600, 1.1rem, 24px);
+            margin-bottom: 0;
+        }
     }
-
     .text-sidebar {
         @include flex(center, center);
         flex-direction: column;
         color: $color-text-sidebar;
         font-style: normal;
-        margin-bottom: 2rem;
-        .title-company {
-            @include format-font(400, 1.2rem, 24px);
-            margin-bottom: 24px;
-        }
+        margin-bottom: 1.3rem;
+    
         .text-username {
-            @include format-font(600, 1rem, 4px);
+            @include format-font(400, 0.8rem, 16px);
             padding: 0 0.7rem;
             text-transform: capitalize;
             text-align: center;
+            border-bottom: 1px solid $color-text-sidebar; 
+            margin-bottom: 8px;
+        
         }
         .text-role {
-            @include format-font(400, 0.9rem, 4px);
+            @include format-font(600, 0.9rem, 4px);
+            text-transform: capitalize;
         }
     }
     
     .button-group-sidebar {
         @include flex(center, center);
         flex-direction: column;
-        gap: 0.5rem;
-        margin: 1.5rem;
+        gap: 1rem;
     }
    
 }
@@ -47,13 +56,17 @@
 
     .container-sidebar {
         .logo-sidebar {
-            width: 4rem;
+            width: 5rem;
         }
-    
-        .text-sidebar {
+        .company {
+            .logo-sidebar {
+                width: 5rem;
+            }
             .title-company {
                 @include format-font(400, 1rem, 24px);
             }
+        }
+        .text-sidebar {
             .text-username {
                 @include format-font(400, 0.9rem, 4px);
             }
@@ -66,7 +79,6 @@
             @include flex(center, center);
             flex-direction: column;
             gap: 0.5rem;
-            margin: 1rem;
         }
     }
 }
@@ -76,19 +88,21 @@
     .container-sidebar {
         @include flex(center, center);
         flex-direction: row;
-        height: 14vh;
-       
-        .logo-sidebar {
-            @include flex(center, center);
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-            width: 3rem;
-        }
-
-        .text-sidebar {
+        gap: 1rem;
+        height: 10vh;
+        .company {
+            .logo-sidebar {
+                @include flex(center, center);
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+                width: 3rem;
+            }
             .title-company {
                 display: none;
             }
+        }
+
+        .text-sidebar {
             .text-username {
                 display: none;
             }
@@ -100,7 +114,6 @@
         .button-group-sidebar {
             @include flex(center, center);
             flex-direction: row;
-            margin: 0 2.5rem;
             gap: 0.5rem;
         }
     }
@@ -115,7 +128,7 @@
             width: 2rem;
         }
         .button-group-sidebar {
-            margin: 0.5rem;
+       
         }
     }
     

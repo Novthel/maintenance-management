@@ -14,12 +14,12 @@ const Notification = () => {
 
     return (
        
-            <div className='container'>
-                <Header userRole={ userRole } />
-                <section className='sec-notify'>
-                    <NotificationDetail />
-                </section>
-            </div>
+        <div className='container'>
+            <Header userRole={ userRole } />
+            <section className='sec-notify'>
+                <NotificationDetail />
+            </section>
+        </div>
 
     );
 }

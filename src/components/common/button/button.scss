@@ -18,15 +18,37 @@
 
 .btn-sidebar {
     background-color: $background-btn-sidebar;
-    width: 13rem;
+    width: 10rem;
     @include format-font(600, 0.8rem, 36px);
     border: none;
-    border-radius: 0.4rem;
+    border-radius: 4px;
+    &:hover {
+        @include format-font(600, 0.8rem, 34px);
+        background-color: transparent;
+        border: 1px solid $color-text-sidebar;
+        color: $color-text-sidebar;
+    }
 }
 
 .btn-menu-dashboard {
+    @include format-font(400, 0.8rem, 28px);
+    background-color: $background-hoover-btn-form;
+    border: 1px solid $background-btn-form;
+    color: $color-text-view;
+    padding: 0 1.5rem;
+    border-radius: 4px;
+    transition: all .45s;
+    &:hover {
+        background-color: transparent;
+        color: $background-hoover-btn-form;
+    }
+}
+
+.btn-navigate {
+    background: none;
     border: none;
-    background-color: transparent;
+    color: $color-text-form;
+    text-decoration: underline;
 }
 
 .btn-send {
@@ -42,9 +64,8 @@
 @media (max-width: 991.98px) { 
     
     .btn-sidebar {
-        width: 8rem;
-        @include format-font(400, 0.6rem, 24px);
-        border-radius: 0.3rem;
+        width: 9rem;
+        @include format-font(600, 0.7rem, 32px);
     }
 }
 

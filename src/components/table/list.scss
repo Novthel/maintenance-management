@@ -2,25 +2,27 @@
 
 .sec-filter {
     @include flex (flex-end, center);
-    padding: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     gap: 1rem;
 }
 
 .table {
-    background-color: $background-table;
+    background-color:white;
+    
     th {
-        @include format-font(600, 1rem, 24px );
+        @include format-font(600, 0.9rem, 16px );
     }
     td {
-        @include format-font(400, 0.9rem, 24px );
+        @include format-font(400, 0.8rem, 12px );
       
     }
     .status {
         text-transform: capitalize;
-        @include format-font(700, 0.9rem, 16px );
+        @include format-font(600, 0.9rem, 16px );
     }
     .checkMark {
-        @include format-font(900, 1.1rem, 4px );
+        @include format-font(900, 1.2rem, 4px );
 
     }
 }
@@ -39,7 +41,7 @@
           
         }
         .status {
-            @include format-font(700, 0.8rem, 16px );
+            @include format-font(200, 0.8rem, 16px );
         }
     }
 }

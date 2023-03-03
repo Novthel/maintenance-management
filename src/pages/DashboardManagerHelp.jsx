@@ -1,23 +1,15 @@
-
 import FormHelp from "../components/Formrequest/FormHelp";
-import MenuDashboard from "../components/menu/MenuDashboard";
-import Sidebar from "../components/sidebar/Sidebar";
-
+import DashboardManager from "./DashboardManager";
 
 
 export default function DashboardManagerHelp() {
 
-
   return (
-    <div className="container pag-dashboard">
-
-        <Sidebar />
-        <section className="dashboard col-12 col-md-9">
-          <MenuDashboard />
-          <section className="container-dashboard">
-            <FormHelp />
-          </section> 
-        </section> 
-    </div>
+   
+    <>
+      <DashboardManager>
+        <FormHelp />
+      </DashboardManager>
+    </>
   )
 }

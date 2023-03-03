@@ -15,36 +15,38 @@ export default function NotificationDetail() {
     const params = useParams();
     const navigate = useNavigate();
     const { id } = useContext( AppContext );
-    
     const [name, setName] = useState('');
     const [requestData, setRequestData] = useState({});
-    const [area, setArea] = useState('');
     const [lastname, setLastname] = useState('');
   
 
-    const { register, handleSubmit, resetField, reset, formState: { errors } } = useForm({
-        defaultValues: requestData
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({
+        defaultValues : requestData
     });
 
    
     const onSubmit = data => {
-
         if(params.id){
             const status = 'processed'
             const newData = { ...data, status }
-            processNotification(newData).then((res)=>{
-                navigate(-1)
-            })
-
+            processNotification(newData)
+                .then((res)=>{
+                    navigate(`/dashboard-manager/create-Activity/${ data._id }`)
+                })
+                .catch(error => console.log(error))
         }else {
-            const requestby = `${ name } ${lastname}`
-            const newData = { ...data, requestby, area}
-            newNotification(newData).then((res)=>{
-                alert(res.msj)
-                resetField('machine')
-                resetField('areasupervisor')
-                resetField('descriptionproblem')
-            })
+            const requestby = id
+            const notificationnumber = 0
+            const newData = { 
+                ...data, requestby, 
+                notificationnumber
+             }
+            newNotification(newData)
+                .then((res)=>{
+                    alert(res.msj)
+                    reset()
+                })
+                .catch(error => console.log(error))
         }
     }
 
@@ -52,16 +54,27 @@ export default function NotificationDetail() {
     useEffect(()=>{
         if(params.id){
             getNotificationsById(params.id)
-                .then((res)=>{
-                    setRequestData(res.data)
-                    reset(res.data)
+                .then((res)=>{ 
+                    const userInfo = res.data.userInfo
+                    setName(userInfo.names)
+                    setLastname(userInfo.lastnames)
+                    setRequestData(res.data.notification)
+                    reset(res.data.notification)
                 })
+                .catch(error => console.log(error))
         }else{
-            getUser(id).then((res)=>{
-                setName(res.data.names)
-                setLastname(res.data.lastnames)
-                setArea(res.data.area)
-            })
+            getUser(id)
+                .then(res=>{
+                    if(res){
+                        if(res.state === 'Ok'){
+                            setName(res.data.names)
+                            setLastname(res.data.lastnames)
+                        } 
+                    }else {
+                        alert(res.msj)
+                    }
+                })
+                .catch(error => console.log(error))
         }  
     },[id, params.id, reset])
    
@@ -75,11 +88,18 @@ export default function NotificationDetail() {
                 <div className='form-line'>
                     <div className='input-row2 col-12 col-sm-7'>
                         <label htmlFor="requestby"><span>Request by:</span></label>
-                        <input type="text" name='requestby' className='input-request' value={ `${name} ${lastname} ` } disabled {...register('requestby')}/>
+                        <input type="text" name='requestby' className='input-request' value={ `${name} ${lastname} ` } disabled />
                     </div>
                     <div className='input-row2 col-12 col-sm-4'>
                         <label htmlFor="area"><span>Area:</span></label>
-                        <input type="text" name='area' className='input-request' value={ area } disabled {...register('area')} />
+                        <input type="text" name='area' className='input-request' disabled={ params.id? 'disabled': ''} {...register('area',
+                        {
+                            required:true,
+                            maxLength: 100
+                        }) 
+                        }/>
+                        { errors.area?.type === 'required' && <p className='text-danger small'>*Area Supervisor is required</p> }
+                        {errors.area?.type === "maxLength" && <p className='text-danger small'>*Max length exceeded</p> }
                     </div>
                 </div>
 
@@ -120,7 +140,8 @@ export default function NotificationDetail() {
                         (
                             <div className='input-row2 col-12 col-sm-4'>
                                 <label htmlFor="requirementdate"><span>Requirement date:</span></label>
-                                <input type="text" name='requirementdate' className='input-request'  disabled {...register('requirementdate')} />
+                                <input type="text" name='requirementdate' className='input-request' 
+                                 value={ new Date (requestData.requirementdate).toLocaleDateString('en-US', {year: 'numeric', month: '2-digit', day: '2-digit'}) } disabled  />
                             </div>
                         )
                         :
@@ -150,8 +171,6 @@ export default function NotificationDetail() {
                     }
                 </div>
 
-                <br></br>
-
                 <div className='form-line'>
                     <div className='input-row2 col-12'>
                         <label htmlFor="descriptionproblem"><span>Description of the problem: </span></label>
@@ -171,7 +190,13 @@ export default function NotificationDetail() {
                     params.id? 
                     (
                         <div className='sec-btn-send col-3'>
-                            <ButtonComp className='btn-submit' type='submit' disabled={ requestData.status === 'processed'? 'disabled': ''} ><AiOutlineCheck /></ButtonComp>
+                            {
+                                requestData.status !=='processed'?
+                                    <ButtonComp className='btn-submit' ><AiOutlineCheck /></ButtonComp>
+                                    :
+                                    null
+                            }
+                         
                         </div> 
                     )
                     :

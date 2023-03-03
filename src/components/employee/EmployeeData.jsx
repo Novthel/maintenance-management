@@ -16,11 +16,12 @@ export default function EmployeeData() {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [position, setPosition] = useState('');
-    const [turn, setTurn] = useState('');
+   
 
     useEffect(() => {
       getUser(params.id)
         .then((res)=>{
+            console.log(res.data)
             setRole(res.data.role)
             setName(res.data.names)
             setLastname(res.data.lastnames)
@@ -28,9 +29,9 @@ export default function EmployeeData() {
             setEmail(res.data.email)
             setPhone(res.data.phone)
             setPosition(res.data.position)
-            setTurn(res.data.turn)
 
         })
+        .catch( error => console.log(error))
     }, [params.id]);
 
 
@@ -61,10 +62,6 @@ export default function EmployeeData() {
                 
                     <div className='form-line'>
                         <div className='input-row2 col-5'>
-                            <label htmlFor="employee-turn"><span>Turn:</span></label>
-                            <input type="text" name='employee-turn' className='input-profile' value={ turn } disabled/>
-                        </div>
-                        <div className='input-row2 col-5'>
                             <label htmlFor="employee-phone"><span>Phone:</span></label>
                             <input type="number" name='employee-phone' className='input-profile' value={ phone } disabled/>
                         </div>
@@ -80,14 +77,20 @@ export default function EmployeeData() {
             </div>
             <div className='photo-employeeProfile col-12 col-md-3'>
                 <img src={ user } alt='employeephoto' className='employee-photo'/>
-                <p className='employee-name'>{ role }</p>
+                <p className='employee-name'>{ position }</p>
             </div>
         </section>
 
         <section className='row col-12'> 
-            <div className='employeeProfile-activities col-12'>
-                <ActivitiesList />
-            </div>
+            {
+                role === 'technician'?
+                <div className='employeeProfile-activities col-12'>
+                    <ActivitiesList role={ role }  id={ params.id } />
+                </div>
+                :
+                null
+            }
+           
         </section>
         
     </div>

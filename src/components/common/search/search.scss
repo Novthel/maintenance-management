@@ -2,27 +2,13 @@
 
 
 .container-search {
-    display: flex;
-    .search {
-        position: relative;
-        color: $color-text-option;  
-        .input-search {
-            background: $background-color-search;
-            padding:  0.3rem;
-            border: 1px solid $background-border-input-order;
-            @include format-font(400, 0.8rem, 12px );
-            border-radius: 4px;
-          
-        }
-
-        .btn-search {
-            position: absolute;
-            right: 4px;
-            height: 100%;
-            border: none;
-            background-color: transparent;
-            @include format-font(400, 1rem, 16px );
-        }
+     
+    .input-search {
+        border: 1px solid $background-border-input-order;
+        outline: none;
+        @include format-font(400, 0.9rem, 24px );
+        padding: 0 8px;
+        
     }
 }
 

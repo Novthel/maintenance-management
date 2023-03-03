@@ -2,19 +2,31 @@ import { useForm } from "react-hook-form";
 import ButtonComp from '../common/button/ButtonComp';
 import './formRegister.scss';
 import { er } from "../../utils/RegularExpression";
+import { UserRegister } from "../../api/ApiUsers";
+
 
 export default function FormRegister() {
 
-  const { register, handleSubmit, formState: { errors } } = useForm({});
+  const { register, handleSubmit, reset, formState: { errors } } = useForm({});
 
   const onSubmit = data => {
-      console.log(data)
+
+    const code = 0
+    const newData ={
+        ...data, code
+    }
+      UserRegister(newData)
+        .then((res)=>{
+            alert(res.msj)
+            reset()
+        })
+        .catch( error => console.log(error))
   }
 
   return (
     <>
          <form className="container-formRegister" onSubmit={ handleSubmit( onSubmit )}>
-            <h2>User Register</h2>
+            <h2>Register</h2>
 
             <div className="row">
                 <div className='form-group col-12 col-md-6'>
@@ -22,14 +34,16 @@ export default function FormRegister() {
                     <input type="text" name='names' className='form-control'  {...register('names',
                     {
                         required:true,
-                        pattern: er.text
+                        pattern: er.text,
+                        maxLength:100
                     }) 
                     }/>
-                    { errors.names?.type === 'required' && <p className='text-danger small'>*Name is required</p> }
+                    { errors.names?.type === 'required' && <p className='text-danger small'>*Name is required..</p> }
                     { errors.names?.type === 'pattern' && 
                     <p className='text-danger small'>
                         * only lowercase, uppercase, accents, and spaces.
                     </p> }
+                    {errors.names?.type === "maxLength" && <p className='text-danger small'>*Max length exceeded. name must have a maximum of 100 characters.</p> }
                 </div>
 
                 <div className='form-group col-12 col-md-6'>
@@ -37,7 +51,8 @@ export default function FormRegister() {
                     <input type="text" name='lastnames' className='form-control'  {...register('lastnames',
                     {
                         required:true,
-                        pattern: er.text
+                        pattern: er.text,
+                        maxLength:100
                     }) 
                     }/>
                     { errors.lastnames?.type === 'required' && <p className='text-danger small'>*LastName is required</p> }
@@ -45,6 +60,7 @@ export default function FormRegister() {
                     <p className='text-danger small'>
                         * only lowercase, uppercase, accents, and spaces.
                     </p> }
+                    {errors.lastnames?.type === "maxLength" && <p className='text-danger small'>* Max length exceeded. Lastname must have a maximum of 100 characters. </p> }
                 </div>
             </div>
 
@@ -54,31 +70,20 @@ export default function FormRegister() {
                     <input type="text" name='area' className='form-control'  {...register('area',
                     {
                         required:true,
-                        pattern: er.text
+                        maxLength:100
                     }) 
                     }/>
                     { errors.area?.type === 'required' && <p className='text-danger small'>*Area is required</p> }
-                    { errors.area?.type === 'pattern' &&  
-                      <p className='text-danger small'>
-                          * only lowercase, uppercase, accents, and spaces.
-                      </p> 
-                    }
+                    {errors.area?.type === "maxLength" && <p className='text-danger small'>* Max length exceeded. Area must have a maximum of 100 characters. </p> }
                 </div>
 
                 <div className='form-group col-12 col-md-6'>
-                    <label htmlFor="turn"><span>Turn *</span></label>
-                    <input type="text" name='turn' className='form-control'  {...register('turn',{ required:true }) }/>
-                    { errors.turn?.type === 'required' && <p className='text-danger small'>*Turn is required</p> }
-                </div>
-            </div>
-           
-            <div className="row">
-                <div className='form-group col-12'>
                     <label htmlFor="position"><span>Position *</span></label>
                     <input type="text" name='position' className='form-control'  {...register('position',
                     {
                         required:true,
-                        pattern: er.text
+                        pattern: er.text,
+                        maxLength:150
                     }) 
                     }/>
                     { errors.position?.type === 'required' && <p className='text-danger small'>*Position is required</p> }
@@ -86,6 +91,7 @@ export default function FormRegister() {
                     <p className='text-danger small'>
                         * only lowercase, uppercase, accents, and spaces.
                     </p> }
+                    {errors.position?.type === "maxLength" && <p className='text-danger small'>* Max length exceeded. Position must have a maximum of 150 characters. </p> }
                 </div>
             </div>
 
@@ -118,7 +124,7 @@ export default function FormRegister() {
             <div className="row">
               <div className='form-group'>
                   <label htmlFor="username"><span>Username *</span></label>
-                  <input type="email" name='username' className='form-control' {...register("username", 
+                  <input type="text" name='username' className='form-control' {...register("username", 
                   { 
                       required:true,
                       pattern: er.user
@@ -150,23 +156,17 @@ export default function FormRegister() {
                 </div>
 
                 <div className='form-group col-12 col-md-6'>
-                    <label htmlFor="confirm"><span>Confirm Password *</span></label>
-                    <input type="password" name='confirm' className='form-control'  {...register('confirm',{ required:true }) }/>
-                    { errors.confirm?.type === 'required' && <p className='text-danger small'>*Password is required</p> }
-                </div>
-            </div>
-
-            <div className="row">
-                <div className='form-group col-6'>
-                <label htmlFor="Role"><span>Role</span></label>
-                  <select className='form-select mb-2' {...register('role')} >
-                        <option value="operator">Operator</option>
-                        <option value="technician">Technician</option>
-                        <option value="supervisor">Supervisor</option>
-                        <option value="leader">Leader</option>
-                        <option value="Admin">Admin</option>
-                  </select>
-                </div>
+                    <label htmlFor="Role"><span>Role</span></label>
+                    <select className='form-select mb-2' {...register('role', { require: true })} >
+                            <option className="value-options" value="">-- Select role -- </option>
+                            <option className="value-options" value="operator">Operator</option>
+                            <option className="value-options" value="technician">Technician</option>
+                            <option className="value-options" value="supervisor">Supervisor</option>
+                            <option className="value-options" value="leader">Leader</option>
+                            <option className="value-options" value="Admin">Admin</option>
+                    </select>
+                    { errors.role?.type === 'required' && <p className='text-danger small'>*Role is required</p> }
+                </div>  
             </div>
             
             <div className='form-group col-4 sec-submit'>

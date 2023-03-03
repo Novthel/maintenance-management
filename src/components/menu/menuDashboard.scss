@@ -6,12 +6,16 @@
     margin-right: 5rem;
     width: 100%;
     background-color: transparent;
+   
     .menu-options {
         margin-bottom: 0;
         li {
             a {
                 @include format-font(600, 0.9rem, 42px);
                 color: $color-text-form;
+                &:hover {
+                    border-bottom: 1px solid $color-text-form;
+                }
             }
         }
     }

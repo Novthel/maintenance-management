@@ -38,7 +38,7 @@
 .pag-dashboard {
     display: flex;
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     flex-wrap: wrap;
     padding: 0;
     .dashboard {
@@ -51,22 +51,36 @@
           width: 90%;
           height: 90vh;
           background-color: $background-container-dashboard;
-          border: 0.5px solid $background-sidebar;
+          border: 0.5px solid  ;
           border-radius: 6px;
           overflow-y: scroll;
+          padding: 0 2rem;
           
           .title-page {
             @include flex(center, center );
-            padding-top: 1rem;
-            background-color: $background-sidebar;
+            background-color: transparent;
+            border-bottom: 0.5px solid $background-sidebar;
+            margin-bottom: 1rem;
             
             h1 {
-              @include format-font(600, 1.8rem, 48px);
-              color: $color-text-sidebar;
+              @include format-font(400, 1.5rem, 36px );
+              text-shadow: 0px 1px 1px rgba(24, 6, 105, 0.25);
             }
           }
         }
     }
+}
+
+.pag-register {
+  width: 100%;
+  min-height: 100vh;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.589), rgba(255, 255, 255, 0.363)), url(./assets/RRHH3.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  .nav-history {
+    padding: 0 3rem;
+    padding-bottom: 1rem;
+  }
 }
 
 @media (max-width: 991.98px) { 

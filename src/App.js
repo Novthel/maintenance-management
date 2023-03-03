@@ -31,45 +31,45 @@ function App() {
 
         <Route path='/' element={ <Home /> } />
 
-        {/* <Route path='/notification' element={ 
-          <RequireAuth isAllowed={ !!username && role === 'operator' }  > 
+        <Route path='/notification' element={ 
+          <RequireAuth isAllowed={ !!username && role === 'operator' } redirectTo='/dashboard-manager' > 
             <Notification />
           </RequireAuth> 
-        } />   */}
-        <Route path='/notification' element={ <Notification /> } />
+        } />  
       
-        {/* <Route path='/dashboard-manager' element={ 
-          <RequireAuth isAllowed={ !!username && role !== 'operator'}  redirectTo='/notification' > 
+        <Route path='/dashboard-manager' element={ 
+          <RequireAuth isAllowed={ !!username && role !== 'operator'} redirectTo= '/'> 
             <DashboardManager />
           </RequireAuth> 
-        } />   */}
-        <Route path='/dashboard-manager' element={ <DashboardManager /> } />
+        } /> 
 
-
+        <Route element={ <RequireAuth isAllowed={ !!username && role !== 'operator' } 
+          redirectTo= '/dashboard-manager' /> }> 
           <Route path='/dashboard-manager/activity-List' element={ <DashboardManagerActivityList /> } />
-          <Route path='/dashboard-manager/Activity/:ordernumber' element={ <DashboardManagerActivity /> } />
+          <Route path='/dashboard-manager/Activity/:id' element={ <DashboardManagerActivity /> } />
           <Route path='/dashboard-manager/notification' element={ <DashboardManagerNotificationDetail /> } />
           <Route path='/dashboard-manager/help' element={ <DashboardManagerHelp /> } />
           <Route path='/dashboard-manager/help/:id' element={ <DashboardManagerHelp /> } />
           <Route path='/dashboard-manager/help-List' element={ <DashboardManagerHelpList /> } />
-          <Route path='/error' element={ <Error /> } />
-        
+        </Route>
    
-        {/* <Route element={ <RequireAuth isAllowed={ !!username && role !== 'technician' && role !== 'operator' } 
-          redirectTo='/dashboard-manager'/> }> */}
-          
-          <Route path='/dashboard-manager/activity-List/:ordernumber' element={ <DashboardManagerOrderDetail /> } />
+        <Route element={ <RequireAuth isAllowed={ !!username && role !== 'technician' && role !== 'operator' } 
+          redirectTo='/dashboard-manager'/> }>
+          <Route path='/dashboard-manager/activity-List/:id' element={ <DashboardManagerOrderDetail /> } />
           <Route path='/dashboard-manager/notification-List' element={ <DashboardManagerNotification /> } />
           <Route path='/dashboard-manager/notification/:id' element={ <DashboardManagerNotificationDetail /> } />
           <Route path='/dashboard-manager/create-Activity' element={ <DashboardManagerCreate /> } />
+          <Route path='/dashboard-manager/create-Activity/:id' element={ <DashboardManagerCreate /> } />
           <Route path='/dashboard-manager/store' element={ <DashboardManagerStore /> } />
           <Route path='/dashboard-manager/employees' element={ <DashboardManagerEmployees /> } />
           <Route path='/dashboard-manager/employees/:id' element={ <DashboardManagerEmployeeData /> } />
-        {/* </Route> */}
+        </Route>
 
-        {/* <Route element={ <RequireAuth isAllowed={ !!username && role === 'admin' } /> } > */}
+        <Route element={ <RequireAuth isAllowed={ !!username && role === 'admin' } redirectTo='/dashboard-manager' /> } >
           <Route path='/register' element={ <Register /> } />
-        {/* </Route> */}
+        </Route>
+
+        <Route path='/error' element={ <Error /> } />
 
       </Routes>
   

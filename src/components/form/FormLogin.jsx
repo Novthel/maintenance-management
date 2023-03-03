@@ -15,21 +15,23 @@ const FormLogin = () => {
     const [error, setError] = useState(false);
     const [msjError, setmsjError] = useState();
     const navigate = useNavigate();
-    const { DecodedToken } = useContext(AppContext);
+    const { decodedToken } = useContext(AppContext);
 
     const onSubmit = (data) => {
-        Login(data).then(res => {
-            if(res.state === 'Ok'){
-                localStorage.setItem('token', res.accessToken );
-                DecodedToken()
-                navigate('/dashboard-manager')
+        Login(data)
+            .then(res => {
+                if(res.state === 'Ok'){
+                    localStorage.setItem('token', res.accessToken );
+                    decodedToken()
+                    navigate(res.url)
                 
-            }else{
-                setError(true);
-                setmsjError(res.msj)
-                setTimeout(() => setError(false), 3000);
-            }
-        })   
+                }else{
+                    setError(true);
+                    setmsjError(res.msj)
+                    setTimeout(() => setError(false), 3000);
+                }
+            })
+            .catch(error => console.log(error))   
     }
 
 
